@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<Ethanon>
+    <Entity shape="0" applyLight="0" castShadow="0" type="0" static="0" blendMode="0">
+        <Sprite>1b.png</Sprite>
+        <Particles />
+        <CustomData>
+            <Variable>
+                <Type>int</Type>
+                <Name>eff</Name>
+                <Value>1</Value>
+            </Variable>
+            <Variable>
+                <Type>int</Type>
+                <Name>out</Name>
+                <Value>5</Value>
+            </Variable>
+            <Variable>
+                <Type>int</Type>
+                <Name>status</Name>
+                <Value>1</Value>
+            </Variable>
+        </CustomData>
+    </Entity>
+</Ethanon>

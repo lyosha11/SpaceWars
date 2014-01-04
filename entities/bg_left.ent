@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<Ethanon>
+    <Entity shape="0" applyLight="0" castShadow="0" type="5" layerDepth="1" static="0" blendMode="0">
+        <Sprite>bg_left.png</Sprite>
+        <Normal>bg_left_normalMap.png</Normal>
+        <Particles />
+        <CustomData />
+    </Entity>
+</Ethanon>

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<Ethanon>
+    <Entity shape="0" applyLight="0" castShadow="0" type="0" static="0" blendMode="0">
+        <Sprite>1p.png</Sprite>
+        <Normal>1p_normalMap.png</Normal>
+        <Particles />
+        <Collision>
+            <Position x="0" y="0" z="0" />
+            <Size x="13" y="33" z="1" />
+        </Collision>
+        <CustomData>
+            <Variable>
+                <Type>int</Type>
+                <Name>type</Name>
+                <Value>1</Value>
+            </Variable>
+        </CustomData>
+    </Entity>
+</Ethanon>

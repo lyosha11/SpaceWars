@@ -1,0 +1,14 @@
+[G:\EthanonEngine\project\eth.log.txt]
+Backbuffer created as 1024, 768 on default backbuffer mode
+____________________________
+
+Loading game script from source-code: main.angelscript
+
+
+Compile time: 31 milliseconds
+Backbuffer created as 1024, 768 on default backbuffer mode
+(Loaded) layer4.png
+(Loaded) start_game.png
+(Loaded) options_game.png
+(Loaded) exit_game.png
+(Loaded) main_logo.png

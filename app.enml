@@ -1,0 +1,13 @@
+default
+{
+	title = Space Wars;
+	richLighting = true;
+}
+
+windows
+{
+	width = 1024;
+	height = 768;
+	windowed = true;
+	vsync = true;
+}

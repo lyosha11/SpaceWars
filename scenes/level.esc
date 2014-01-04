@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<Ethanon>
+    <SceneProperties lightIntensity="0" parallaxIntensity="0">
+        <Ambient r="1" g="1" b="1" />
+        <ZAxisDirection x="0" y="-1" />
+    </SceneProperties>
+    <EntitiesInScene>
+        <Entity id="4" spriteFrame="0">
+            <EntityName>background1.ent</EntityName>
+            <Position x="512" y="384" z="0" angle="0" />
+            <Entity>
+                <FileName>background1.ent</FileName>
+                <CustomData />
+            </Entity>
+        </Entity>
+        <Entity id="2" spriteFrame="0" shadowZ="0">
+            <EntityName>player.ent</EntityName>
+            <Position x="462.5" y="560.5" z="0" angle="0" />
+            <Entity>
+                <FileName>player.ent</FileName>
+                <CustomData>
+                    <Variable>
+                        <Type>int</Type>
+                        <Name>hp</Name>
+                        <Value>100</Value>
+                    </Variable>
+                </CustomData>
+            </Entity>
+        </Entity>
+    </EntitiesInScene>
+</Ethanon>

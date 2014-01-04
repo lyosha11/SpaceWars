@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<Ethanon>
+    <Entity shape="1" sensor="0" bullet="0" fixedRotation="1" friction="1" density="1" restitution="0" gravityScale="0" applyLight="0" castShadow="1" shadowScale="1" shadowLengthScale="1" shadowOpacity="1" type="0" static="0" blendMode="0">
+        <Sprite>player.png</Sprite>
+        <Normal>player_normalMap.png</Normal>
+        <Gloss>player.png</Gloss>
+        <Particles>
+            <ParticleSystem particles="100" allAtOnce="0" alphaMode="0" repeat="0" animationMode="1" boundingSphere="128" lifeTime="100" randomLifeTime="100" angleDir="0" randAngle="0" size="8" randomizeSize="0" growth="0.5" minSize="0" maxSize="50" angleStart="0" randAngleStart="0">
+                <Bitmap>engineEff.png</Bitmap>
+                <Gravity x="0" y="0.6" />
+                <Direction x="0" y="0" />
+                <RandomizeDir x="1" y="1" />
+                <SpriteCut x="1" y="1" />
+                <StartPoint x="-32" y="28.5" z="0" />
+                <RandStartPoint x="0" y="0" />
+                <Color0 r="1" g="1" b="0" a="1" />
+                <Color1 r="1" g="0" b="0" a="0" />
+                <Luminance r="1" g="1" b="1" />
+            </ParticleSystem>
+            <ParticleSystem particles="100" allAtOnce="0" alphaMode="0" repeat="0" animationMode="1" boundingSphere="128" lifeTime="100" randomLifeTime="100" angleDir="0" randAngle="0" size="8" randomizeSize="0" growth="0.5" minSize="0" maxSize="50" angleStart="0" randAngleStart="0">
+                <Bitmap>engineEff.png</Bitmap>
+                <Gravity x="0" y="0.6" />
+                <Direction x="0" y="0" />
+                <RandomizeDir x="1" y="1" />
+                <SpriteCut x="1" y="1" />
+                <StartPoint x="34" y="28.5" z="0" />
+                <RandStartPoint x="0" y="0" />
+                <Color0 r="1" g="1" b="0" a="1" />
+                <Color1 r="1" g="0" b="0" a="0" />
+                <Luminance r="1" g="1" b="1" />
+            </ParticleSystem>
+        </Particles>
+        <Collision>
+            <Position x="0" y="-20" z="0" />
+            <Size x="133" y="130" z="1" />
+        </Collision>
+        <CustomData>
+            <Variable>
+                <Type>int</Type>
+                <Name>hp</Name>
+                <Value>100</Value>
+            </Variable>
+            <Variable>
+                <Type>float</Type>
+                <Name>radius</Name>
+                <Value>66</Value>
+            </Variable>
+            <Variable>
+                <Type>int</Type>
+                <Name>type</Name>
+                <Value>-1</Value>
+            </Variable>
+        </CustomData>
+    </Entity>
+</Ethanon>
