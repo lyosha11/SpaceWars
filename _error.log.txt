@@ -1,5 +1,0 @@
-[G:\EthanonEngine\project\_error.log.txt]
-Duplicate resource name found: G:\EthanonEngine\project\particles\1r.png <-> entities\1r.png
-Duplicate resource name found: G:\EthanonEngine\project\particles\1r.png <-> entities\1r.png
-Duplicate resource name found: G:\EthanonEngine\project\particles\1r.png <-> entities\1r.png
-Duplicate resource name found: G:\EthanonEngine\project\particles\1r.png <-> entities\1r.png

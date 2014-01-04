@@ -1,5 +1,0 @@
-[E:\EthanonEngine\project\_warning.log.txt]
-
-[WARN ] game.angelscript, line 26: 'numEnemys' is not initialized.
-
-[WARN ] game.angelscript, line 28: 'numBullets' is not initialized.

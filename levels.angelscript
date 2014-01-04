@@ -60,6 +60,29 @@ int changeLevel(int level){
 			}
 			size = 3;
 		break;
+		case 4:
+			x=280;
+			y=50;
+			x=x+100;
+			for(int i=0;i<3;i++){
+				x=x+100;
+				if(i==0){
+					id[i] = AddEntity("enemy1.ent", vector3(x, y, 0.0f),"enemy"+i);
+					ETHEntity @enemy = SeekEntity(id[0]);
+					enemy.SetFloat("hp", 100.0f);
+				}if(i==1){
+					id[i] = AddEntity("enemyBig2.ent", vector3(x, y, 0.0f),"enemy"+i);
+					ETHEntity @enemy = SeekEntity(id[1]);
+					enemy.SetFloat("hp", 500.0f);
+				}if(i==2){
+				x=x+100;
+					id[i] = AddEntity("enemy3.ent", vector3(x, y, 0.0f),"enemy"+i);
+					ETHEntity @enemy = SeekEntity(id[2]);
+					enemy.SetFloat("hp", 100.0f);
+				}
+			}
+			size = 3;
+		break;
 		default:
 			print("level not found");
 	}
