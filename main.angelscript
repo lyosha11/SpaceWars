@@ -5,6 +5,7 @@
 #include "hud.angelscript"
 
 int level , rockets;
+bool pause = false;
 
 void loadStartScene(){
 	HideCursor(false);
@@ -111,58 +112,60 @@ void updateGameScene(){
 bool tmp_fire = true;
 
 void ETHCallback_player(ETHEntity@ thisEntity){
-	ETHInput@ input = GetInputHandle();
-	if(alivePlayer){
-		float speed = 5.0f;
-		if (input.KeyDown(K_RIGHT) && thisEntity.GetPosition().x < 950)
-			thisEntity.AddToPositionXY(vector2(speed, 0.0f));
+	if(!pause){
+		ETHInput@ input = GetInputHandle();
+		if(alivePlayer){
+			float speed = 5.0f;
+			if (input.KeyDown(K_RIGHT) && thisEntity.GetPosition().x < 950)
+				thisEntity.AddToPositionXY(vector2(speed, 0.0f));
 
-		if (input.KeyDown(K_LEFT) && thisEntity.GetPosition().x > 230)
-			thisEntity.AddToPositionXY(vector2(-speed, 0.0f));
+			if (input.KeyDown(K_LEFT) && thisEntity.GetPosition().x > 230)
+				thisEntity.AddToPositionXY(vector2(-speed, 0.0f));
 
-		if (input.KeyDown(K_UP) && thisEntity.GetPosition().y > 60)
-			thisEntity.AddToPositionXY(vector2(0.0f,-speed));
+			if (input.KeyDown(K_UP) && thisEntity.GetPosition().y > 60)
+				thisEntity.AddToPositionXY(vector2(0.0f,-speed));
 
-		if (input.KeyDown(K_DOWN) && thisEntity.GetPosition().y < 720)
-			thisEntity.AddToPositionXY(vector2(0.0f, speed));
-			
-		if (input.GetKeyState(K_SPACE) == KS_HIT){
-			vector3 tmp = thisEntity.GetPosition();
-			tmp.y = tmp.y-35;
-			if(tmp_fire)
-				tmp.x = tmp.x+33;
-			else
-				tmp.x = tmp.x-33;
-			int id = AddEntity("shot.ent",tmp);
-			PlaySample("soundfx/shoot.mp3");
-			if(tmp_fire)
-				tmp_fire = false;
-			else
-				tmp_fire = true;
-			insertBullet(SeekEntity(id));
-		}
-		
-		if (input.GetKeyState(K_CTRL) == KS_HIT){
-			if(rockets>0){
+			if (input.KeyDown(K_DOWN) && thisEntity.GetPosition().y < 720)
+				thisEntity.AddToPositionXY(vector2(0.0f, speed));
+				
+			if (input.GetKeyState(K_SPACE) == KS_HIT){
 				vector3 tmp = thisEntity.GetPosition();
 				tmp.y = tmp.y-35;
 				if(tmp_fire)
 					tmp.x = tmp.x+33;
 				else
 					tmp.x = tmp.x-33;
-				int id = AddEntity("shotRocket1.ent",tmp);
-				PlaySample("soundfx/shootRocket1.mp3");
+				int id = AddEntity("shot.ent",tmp);
+				PlaySample("soundfx/shoot.mp3");
 				if(tmp_fire)
 					tmp_fire = false;
 				else
 					tmp_fire = true;
 				insertBullet(SeekEntity(id));
-				rockets--;
+			}
+			
+			if (input.GetKeyState(K_CTRL) == KS_HIT){
+				if(rockets>0){
+					vector3 tmp = thisEntity.GetPosition();
+					tmp.y = tmp.y-35;
+					if(tmp_fire)
+						tmp.x = tmp.x+33;
+					else
+						tmp.x = tmp.x-33;
+					int id = AddEntity("shotRocket1.ent",tmp);
+					PlaySample("soundfx/shootRocket1.mp3");
+					if(tmp_fire)
+						tmp_fire = false;
+					else
+						tmp_fire = true;
+					insertBullet(SeekEntity(id));
+					rockets--;
+				}
 			}
 		}
-	}
-	if (input.GetKeyState(K_ESC) == KS_HIT){
-		loadStartScene();
+		if (input.GetKeyState(K_ESC) == KS_HIT){
+			loadStartScene();
+		}
 	}
 }
 
@@ -172,39 +175,45 @@ void addLevel(){
 
 void ETHCallback_shot(ETHEntity@ thisEntity)
 {
-        float speed = UnitsPerSecond(360.0f);
-        thisEntity.AddToPositionXY(vector2(0.0f,-1.0f) * speed);
+		if(!pause){
+			float speed = UnitsPerSecond(360.0f);
+			thisEntity.AddToPositionXY(vector2(0.0f,-1.0f) * speed);
 
-        // if the projectile goes out of the screen view, delete it
-        if (thisEntity.GetPosition().y < 0.0f)
-        {
-                DeleteEntity(thisEntity);
-                print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
-        }
+			// if the projectile goes out of the screen view, delete it
+			if (thisEntity.GetPosition().y < 0.0f)
+			{
+					DeleteEntity(thisEntity);
+					print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+			}
+		}
 }
 
 void ETHCallback_shotRocket1(ETHEntity@ thisEntity)
 {
-        float speed = UnitsPerSecond(360.0f);
-        thisEntity.AddToPositionXY(vector2(0.0f,-1.0f) * speed);
+		if(!pause){
+			float speed = UnitsPerSecond(360.0f);
+			thisEntity.AddToPositionXY(vector2(0.0f,-1.0f) * speed);
 
-        // if the projectile goes out of the screen view, delete it
-        if (thisEntity.GetPosition().y > 768.0f)
-        {
-                DeleteEntity(thisEntity);
-                print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
-        }
+			// if the projectile goes out of the screen view, delete it
+			if (thisEntity.GetPosition().y < 0.0f)
+			{
+					DeleteEntity(thisEntity);
+					print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+			}
+		}
 }
 
 void ETHCallback_shot2(ETHEntity@ thisEntity)
 {
-        float speed = UnitsPerSecond(360.0f);
-        thisEntity.AddToPositionXY(vector2(0.0f,1.0f) * speed);
+		if(!pause){
+			float speed = UnitsPerSecond(360.0f);
+			thisEntity.AddToPositionXY(vector2(0.0f,1.0f) * speed);
 
-        // if the projectile goes out of the screen view, delete it
-        if (thisEntity.GetPosition().y > 768.0f)
-        {
-                DeleteEntity(thisEntity);
-                print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
-        }
+			// if the projectile goes out of the screen view, delete it
+			if (thisEntity.GetPosition().y > 768.0f)
+			{
+					DeleteEntity(thisEntity);
+					print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+			}
+		}
 }
