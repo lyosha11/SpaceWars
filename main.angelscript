@@ -217,3 +217,18 @@ void ETHCallback_shot2(ETHEntity@ thisEntity)
 			}
 		}
 }
+
+void ETHCallback_bonus_rocket(ETHEntity@ thisEntity)
+{
+		if(!pause){
+			float speed = UnitsPerSecond(250.0f);
+			thisEntity.AddToPositionXY(vector2(0.0f,1.0f) * speed);
+
+			// if the projectile goes out of the screen view, delete it
+			if (thisEntity.GetPosition().y > 768.0f)
+			{
+					DeleteEntity(thisEntity);
+					print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+			}
+		}
+}

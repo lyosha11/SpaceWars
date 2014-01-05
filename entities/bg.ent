@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <Ethanon>
-    <Entity shape="0" applyLight="0" castShadow="0" type="0" static="0" blendMode="0">
+    <Entity shape="0" applyLight="0" castShadow="0" type="5" layerDepth="1" static="0" blendMode="0">
         <Sprite>bg.png</Sprite>
         <Particles />
         <CustomData />

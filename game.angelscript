@@ -44,7 +44,7 @@ bool fireAI(ETHEntity@ obj){
 	return false;
 }
 
-ETHEntityArray enemys , bullets , eff;
+ETHEntityArray enemys , bullets , eff, bonus;
 bool alivePlayer = true;
 int counter = 0;
 
@@ -53,6 +53,20 @@ void insertBullet(ETHEntity@ obj){
 }
 
 void init(int level){
+	//Delete bullets and effects
+	if(bullets.Size()>0){
+		for(uint i=0;i<bullets.Size();i++){
+			DeleteEntity(bullets[i]);
+		}
+	}
+	if(eff.Size()>0){
+		for(uint i=0;i<eff.Size();i++){
+			DeleteEntity(eff[i]);
+		}
+	}
+	//
+	
+	//Start (1-level)
 	if(level==1){
 		ETHEntity@ pl = SeekEntity("player.ent");
 		pl.SetFloat("hp",500);
@@ -62,8 +76,16 @@ void init(int level){
 		LoadSoundEffect("soundfx/shoot.mp3");
 		LoadSoundEffect("soundfx/shoot2.mp3");
 		LoadSoundEffect("soundfx/shootRocket1.mp3");
+		LoadSoundEffect("soundfx/bonusPickUp.mp3");
+		//
+		//Random background
+		vector2 vc2 = GetScreenSize() * vector2(0.5f, 0.5f);
+		vector3 center(vc2.x,vc2.y,0);
+		AddEntity("background"+rand(1,4)+".ent",center,"background");
 		//
 	}
+	//
+	
 	int size = changeLevel(level);
 	for(int i=0;i<size;i++){
 		ETHEntity@ obj = SeekEntity("enemy"+i);
@@ -77,10 +99,11 @@ void loop(int level){
 		const uint numEnemys = enemys.Size();
 		const uint numBullets = bullets.Size();
 		const uint numEff = eff.Size();
+		const uint numBonus = bonus.Size();
 		//
 		//Text
-		DrawText(GetScreenSize() * vector2(0.02f, 0.84f), "Level: "+level, "Verdana20.fnt", 0xFFFFFFFF);
-		DrawText(GetScreenSize() * vector2(0.02f, 0.80f), "Rockets: "+rockets, "Verdana20.fnt", 0xFFFFFFFF);
+		DrawText(GetScreenSize() * vector2(0.02f, 0.84f), "Level: "+level, "Verdana20_shadow.fnt", 0xFFFFFFFF);
+		DrawText(GetScreenSize() * vector2(0.02f, 0.80f), "Rockets: "+rockets, "Verdana20_shadow.fnt", 0xFFFFFFFF);
 		if(debug){
 			DrawText(vector2(0, 0), "FPS: "+GetFPSRate(), "Verdana20.fnt", 0xFFFFFFFF);
 			DrawText(vector2(0,15), "enemys.Size(): "+numEnemys, "Verdana20.fnt", 0xFFFFFFFF);
@@ -135,8 +158,8 @@ void loop(int level){
 				}
 			}
 			//
-			DrawText(vector2(20,100), "hp: "+pl.GetFloat("hp")/5+"%", "Verdana20.fnt", 0xFFFFFFFF);
-			DrawText(vector2(20,115), "sh: "+pl.GetFloat("shield")+"%", "Verdana20.fnt", 0xFFFFFFFF);
+			DrawText(vector2(20,100), "hp: "+pl.GetFloat("hp"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+			DrawText(vector2(20,115), "sh: "+pl.GetFloat("shield"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 			for (uint i2 = 0; i2 < numBullets; i2++){
 				if(bullets[i2].GetInt("type")!=2)
 					continue;
@@ -166,6 +189,17 @@ void loop(int level){
 							}
 					}
 			}
+			//Bonus collision
+			if(numBonus>0){
+				for(uint i=0;i<numBonus;i++){
+					if(collision(pl,bonus[i])){
+						rockets = rockets + 20;
+						DeleteEntity(bonus[i]);
+						PlaySample("soundfx/bonusPickUp.mp3");
+					}
+				}
+			}
+			//
 		}else{
 			DrawText(vector2(20,100), "hp: DEAD", "Verdana20.fnt", 0xFFFFFFFF);
 		}
@@ -316,6 +350,7 @@ void loop(int level){
 		enemys.RemoveDeadEntities();
 		bullets.RemoveDeadEntities();
 		eff.RemoveDeadEntities();
+		bonus.RemoveDeadEntities();
 		//
 		if(debug){
 			DrawText(vector2(0,60), "RemoveDeadEntities(): true", "Verdana20.fnt", 0xFFFFFFFF);
@@ -325,6 +360,19 @@ void loop(int level){
 			startPause();
 			addLevel();
 			init(++level);
+		}
+		//
+		
+		//Random bonus
+		uint rnd = rand(1,1000);
+		if(rnd==1){
+			rnd = rand(1,1);
+			if(rnd==1){
+				uint id = AddEntity("bonus_rocket.ent",vector3(rand(10,760),-10,0));
+				bonus.Insert(SeekEntity(id));
+			}else{
+				//Bonus2
+			}
 		}
 		//
 		

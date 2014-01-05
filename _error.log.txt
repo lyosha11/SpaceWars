@@ -1,2 +1,4 @@
 [G:\EthanonEngine\project\_error.log.txt]
-Couldn't find the entity to delete: ID88
+
+[ERROR] game.angelscript, line 357: No matching signatures to 'rand(const uint, const uint, const uint)'
+ERROR - Failed while building module.

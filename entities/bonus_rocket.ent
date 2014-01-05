@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<Ethanon>
+    <Entity shape="0" applyLight="0" castShadow="0" type="0" static="0" blendMode="0">
+        <Sprite>ammo-rocket.png</Sprite>
+        <Normal>bonus.png</Normal>
+        <Particles />
+        <CustomData>
+            <Variable>
+                <Type>float</Type>
+                <Name>radius</Name>
+                <Value>20</Value>
+            </Variable>
+        </CustomData>
+    </Entity>
+</Ethanon>
