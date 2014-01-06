@@ -42,8 +42,23 @@
             </Variable>
             <Variable>
                 <Type>float</Type>
+                <Name>max_hp</Name>
+                <Value>100</Value>
+            </Variable>
+            <Variable>
+                <Type>float</Type>
+                <Name>max_sh</Name>
+                <Value>100</Value>
+            </Variable>
+            <Variable>
+                <Type>float</Type>
                 <Name>radius</Name>
                 <Value>66</Value>
+            </Variable>
+            <Variable>
+                <Type>float</Type>
+                <Name>shield</Name>
+                <Value>100</Value>
             </Variable>
             <Variable>
                 <Type>int</Type>

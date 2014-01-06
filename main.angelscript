@@ -3,9 +3,11 @@
 #include "game.angelscript"
 #include "levels.angelscript"
 #include "hud.angelscript"
+#include "shop.angelscript"
 
 int level , rockets;
 bool pause = false;
+bool shop = false;
 
 void loadStartScene(){
 	HideCursor(false);
@@ -102,6 +104,8 @@ void updateOptionsScene(){
 
 void createGameScene(){
 	initHud();
+	initPause();
+	initShop();
 	init(level);
 }
 
@@ -114,6 +118,13 @@ bool tmp_fire = true;
 void ETHCallback_player(ETHEntity@ thisEntity){
 	if(!pause){
 		ETHInput@ input = GetInputHandle();
+		if(debug){
+			if(input.GetKeyState(K_Q) == KS_HIT){
+				pause = true;
+				initPause();
+				startPause();
+			}
+		}
 		if(alivePlayer){
 			float speed = 5.0f;
 			if (input.KeyDown(K_RIGHT) && thisEntity.GetPosition().x < 950)

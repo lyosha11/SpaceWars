@@ -1,4 +1,5 @@
-bool isPointInRect(const vector2 &in p, const vector2 &in pos, const vector2 &in size, const vector2 &in origin)
+#include "Module.angelscript"
+bool isPointInRectSlot(const vector2 &in p, const vector2 &in pos, const vector2 &in size, const vector2 &in origin)
 {        
         vector2 posRelative = vector2(pos.x - size.x * origin.x, pos.y - size.y * origin.y);
         if (p.x < posRelative.x || p.x > posRelative.x + size.x || p.y < posRelative.y || p.y > posRelative.y + size.y)
@@ -7,24 +8,62 @@ bool isPointInRect(const vector2 &in p, const vector2 &in pos, const vector2 &in
                 return true;
 }
 
-class Button
+
+class Slot
 {
 	private string m_spriteName;
 	private vector2 m_pos;
 	private vector2 m_origin;
 	private vector2 m_size;
 	private bool m_isPressed;
-
-	Button(const string _spriteName, const vector2 &in _pos, const vector2 &in _origin = vector2(0.5f, 0.5f))
-	{
+	private Module mod;
+	Slot(){
+		m_spriteName = "sprites/modules/slot.png";
+		m_pos = vector2(0,0);
+		LoadSprite(m_spriteName);
+		m_size = GetSpriteFrameSize(m_spriteName);
+		m_origin = vector2(0.5f, 0.5f);
+		m_isPressed = false;
+		mod = Module();
+	}
+	Slot(const vector2 &in _pos, const vector2 &in _origin = vector2(0.5f, 0.5f)){
+		m_origin = _origin;
+		m_spriteName = "sprites/modules/slot.png";
+		m_pos = _pos;
+		LoadSprite(m_spriteName);
+		m_size = GetSpriteFrameSize(m_spriteName);
+		m_isPressed = false;
+		mod = Module();
+	}
+	Slot(const string _spriteName, const vector2 &in _pos, const vector2 &in _origin = vector2(0.5f, 0.5f)){
 		m_origin = _origin;
 		m_spriteName = _spriteName;
 		m_pos = _pos;
 		LoadSprite(m_spriteName);
 		m_size = GetSpriteFrameSize(m_spriteName);
 		m_isPressed = false;
+		mod = Module();
 	}
-
+	
+	void setMod(Module@ obj){
+		mod = obj;
+	}
+	void deleteMod(){
+		mod.setAll("","",0);
+	}
+	bool isMod(){
+		string str = mod.getSprite();
+		if(str!=""){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	Module@ getMod(){
+		return @mod;
+	}
+	
+	//Graphic and pressed
 	vector2 getPos()
 	{
 		return m_pos;
@@ -35,7 +74,7 @@ class Button
 		m_pos = _pos;
 	}
 
-	void setButtonBitmap(const string &in _spriteName)
+	void setBitmap(const string &in _spriteName)
 	{
 		m_spriteName = _spriteName;
 	}
@@ -45,12 +84,12 @@ class Button
 		return m_spriteName;
 	}
 
-	void putButton()
+	void put()
 	{
-		putButton(vector2(0,0));
+		put(vector2(0,0));
 	}
 
-	void putButton(const vector2 &in offset)
+	void put(const vector2 &in offset)
 	{
 		update();
 		draw(offset);
@@ -63,8 +102,16 @@ class Button
 
 	void draw(const vector2 &in offset)
 	{
+		//Slot sprite
 		SetSpriteOrigin(m_spriteName, m_origin);
 		DrawSprite(m_spriteName, m_pos + offset);
+		//
+		//Module sprite
+		if(mod.getSprite()!=""){
+		SetSpriteOrigin(mod.getSprite(), m_origin);
+		DrawSprite(mod.getSprite(), m_pos + offset);
+		}
+		//
 	}
 
 	vector2 getSize() const
@@ -72,9 +119,9 @@ class Button
 		return m_size;
 	}
 
-	bool isPointInButton(const vector2 &in p) const
+	bool isPointInButton(const vector2 &in p)
 	{
-		return isPointInRect(p, m_pos, m_size, m_origin);
+		return isPointInRectSlot(p, m_pos, m_size, m_origin);
 	}
 
 	void update()
@@ -105,4 +152,5 @@ class Button
 	{
 		m_isPressed = pressed;
 	}
+	//
 }

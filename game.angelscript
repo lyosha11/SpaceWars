@@ -1,6 +1,7 @@
 #include "eth_util.angelscript"
 #include "main.angelscript"
 #include "pause.angelscript"
+#include "shop.angelscript"
 
 //DEBUG
 bool debug = true;
@@ -70,7 +71,9 @@ void init(int level){
 	if(level==1){
 		ETHEntity@ pl = SeekEntity("player.ent");
 		pl.SetFloat("hp",500);
+		pl.SetFloat("max_hp",500);
 		pl.SetFloat("shield",100);
+		pl.SetFloat("max_sh",100);
 		alivePlayer = true;
 		//LOAD SOUNDS
 		LoadSoundEffect("soundfx/shoot.mp3");
@@ -158,8 +161,8 @@ void loop(int level){
 				}
 			}
 			//
-			DrawText(vector2(20,100), "hp: "+pl.GetFloat("hp"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
-			DrawText(vector2(20,115), "sh: "+pl.GetFloat("shield"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+			DrawText(vector2(20,100), "hp: "+pl.GetFloat("hp")+"/"+pl.GetFloat("max_hp"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+			DrawText(vector2(20,115), "sh: "+pl.GetFloat("shield")+"/"+pl.GetFloat("max_sh"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 			for (uint i2 = 0; i2 < numBullets; i2++){
 				if(bullets[i2].GetInt("type")!=2)
 					continue;
@@ -382,7 +385,10 @@ void loop(int level){
 			counter = 0;
 		//
 	}else{
-		loopPause();
+		if(!shop)
+			loopPause();
+		else
+			loopShop();
 	}
 }
 
