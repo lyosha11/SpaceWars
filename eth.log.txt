@@ -4,13 +4,13 @@ ____________________________
 
 Loading game script from source-code: main.angelscript
 
-[INFO ] shop.angelscript, line 48: Compiling void loopShop()
+[INFO ] shop.angelscript, line 49: Compiling void loopShop()
 
-[WARN ] shop.angelscript, line 58: Signed/Unsigned mismatch
+[WARN ] shop.angelscript, line 59: Signed/Unsigned mismatch
 
-[WARN ] shop.angelscript, line 65: Signed/Unsigned mismatch
+[WARN ] shop.angelscript, line 66: Signed/Unsigned mismatch
 
-Compile time: 31 milliseconds
+Compile time: 32 milliseconds
 Backbuffer created as 1024, 768 on default backbuffer mode
 (Loaded) layer4.png
 (Loaded) start_game.png
@@ -27,7 +27,7 @@ Backbuffer created as 1024, 768 on default backbuffer mode
 (Loaded) shoot2.mp3
 (Loaded) shootRocket1.mp3
 (Loaded) bonusPickUp.mp3
-(Loaded) layer1.png
+(Loaded) layer4.png
 (Loaded) enemy2-2.png
 (Loaded) enemy2_normalMap.png
 (Loaded) enemy2Eff.png
@@ -39,9 +39,122 @@ Backbuffer created as 1024, 768 on default backbuffer mode
 (Loaded) pause_next.png
 (Loaded) shop.png
 (Loaded) return_game.png
-(Loaded) mod_null.png
+(Loaded) mod_50hp.png
+(Loaded) mod_50sh.png
+(Loaded) mod_4dmg.png
+smod = -1
 smod = -1
 (Loaded) layer3.png
+(Loaded) 1r.png
+(Loaded) rocketEff.png
+projectile removed because it is no longer visible: ID 12
+(Loaded) 1b.png
+(Loaded) 2b.png
+(Loaded) 3b.png
+(Loaded) 4b.png
+(Loaded) 5b.png
+projectile removed because it is no longer visible: ID 19
+(Loaded) 6b.png
+projectile removed because it is no longer visible: ID 15
+(Loaded) shieldPlayer.png
+projectile removed because it is no longer visible: ID 16
+projectile removed because it is no longer visible: ID 17
+(Loaded) 1p.png
+(Loaded) 1p_normalMap.png
+projectile removed because it is no longer visible: ID 20
+projectile removed because it is no longer visible: ID 22
+projectile removed because it is no longer visible: ID 27
+projectile removed because it is no longer visible: ID 29
+projectile removed because it is no longer visible: ID 28
+projectile removed because it is no longer visible: ID 32
+projectile removed because it is no longer visible: ID 33
+projectile removed because it is no longer visible: ID 36
+(Loaded) 1d.png
+projectile removed because it is no longer visible: ID 40
+projectile removed because it is no longer visible: ID 38
+(Loaded) 2d.png
+(Loaded) 3d.png
+(Loaded) 4d.png
+(Loaded) 5d.png
+projectile removed because it is no longer visible: ID 45
+(Loaded) 6d.png
+(Loaded) 7d.png
+(Loaded) 8d.png
+projectile removed because it is no longer visible: ID 44
+(Loaded) 9d.png
+projectile removed because it is no longer visible: ID 46
+projectile removed because it is no longer visible: ID 49
+projectile removed because it is no longer visible: ID 54
+projectile removed because it is no longer visible: ID 59
+projectile removed because it is no longer visible: ID 55
+projectile removed because it is no longer visible: ID 61
+projectile removed because it is no longer visible: ID 60
+projectile removed because it is no longer visible: ID 66
+projectile removed because it is no longer visible: ID 69
+projectile removed because it is no longer visible: ID 78
+projectile removed because it is no longer visible: ID 75
+projectile removed because it is no longer visible: ID 80
+projectile removed because it is no longer visible: ID 85
+projectile removed because it is no longer visible: ID 83
+projectile removed because it is no longer visible: ID 86
+(Loaded) enemy3-1.png
+(Loaded) enemy3_normalMap.png
+(Loaded) enemy3Eff.png
+(Loaded) enemy3-2.png
+(Loaded) enemy4Eff.png
+(Loaded) layer2.png
+Couldn't find the entity to delete: ID90
+projectile removed because it is no longer visible: ID 102
+projectile removed because it is no longer visible: ID 103
+projectile removed because it is no longer visible: ID 104
+projectile removed because it is no longer visible: ID 105
+projectile removed because it is no longer visible: ID 107
+projectile removed because it is no longer visible: ID 110
+projectile removed because it is no longer visible: ID 114
+projectile removed because it is no longer visible: ID 112
+projectile removed because it is no longer visible: ID 113
+projectile removed because it is no longer visible: ID 115
+projectile removed because it is no longer visible: ID 121
+projectile removed because it is no longer visible: ID 124
+projectile removed because it is no longer visible: ID 127
+projectile removed because it is no longer visible: ID 120
+projectile removed because it is no longer visible: ID 123
+projectile removed because it is no longer visible: ID 132
+projectile removed because it is no longer visible: ID 135
+projectile removed because it is no longer visible: ID 133
+projectile removed because it is no longer visible: ID 139
+projectile removed because it is no longer visible: ID 141
+projectile removed because it is no longer visible: ID 143
+projectile removed because it is no longer visible: ID 137
+projectile removed because it is no longer visible: ID 140
+projectile removed because it is no longer visible: ID 145
+projectile removed because it is no longer visible: ID 144
+projectile removed because it is no longer visible: ID 153
+projectile removed because it is no longer visible: ID 147
+projectile removed because it is no longer visible: ID 150
+projectile removed because it is no longer visible: ID 152
+projectile removed because it is no longer visible: ID 161
+projectile removed because it is no longer visible: ID 162
+projectile removed because it is no longer visible: ID 160
+projectile removed because it is no longer visible: ID 163
+(Loaded) ammo-rocket.png
+(Loaded) bonus.png
+projectile removed because it is no longer visible: ID 169
+projectile removed because it is no longer visible: ID 170
+projectile removed because it is no longer visible: ID 172
+projectile removed because it is no longer visible: ID 173
+projectile removed because it is no longer visible: ID 174
+projectile removed because it is no longer visible: ID 176
+projectile removed because it is no longer visible: ID 182
+projectile removed because it is no longer visible: ID 184
+projectile removed because it is no longer visible: ID 179
+projectile removed because it is no longer visible: ID 180
+projectile removed because it is no longer visible: ID 185
+projectile removed because it is no longer visible: ID 186
+projectile removed because it is no longer visible: ID 177
+projectile removed because it is no longer visible: ID 188
+(Loaded) enemyBig1.png
+(Loaded) enemyBig_normalMap.png
 (Loaded) layer4.png
 (Loaded) start_game.png
 (Loaded) options_game.png

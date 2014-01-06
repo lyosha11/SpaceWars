@@ -98,6 +98,8 @@ void init(int level){
 
 void loop(int level){
 	if(!pause){
+		//Player
+		ETHEntity@ pl = SeekEntity("player.ent");
 		//Sizes
 		const uint numEnemys = enemys.Size();
 		const uint numBullets = bullets.Size();
@@ -121,7 +123,7 @@ void loop(int level){
 					continue;
 				if(collision(@enemys[i],@bullets[i2])){
 						if(bullets[i2].GetInt("type")==1){
-							enemys[i].SetFloat("hp",enemys[i].GetFloat("hp")-rand(8,16));
+							enemys[i].SetFloat("hp",enemys[i].GetFloat("hp")-rand(pl.GetFloat("min_damage"),pl.GetFloat("max_damage")));
 						}
 						if(bullets[i2].GetInt("type")==3){
 							enemys[i].SetFloat("hp",enemys[i].GetFloat("hp")-rand(16,32));

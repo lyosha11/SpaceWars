@@ -35,8 +35,9 @@ void initShop(){
 		}
 	}
 	//Add module to shop
-	Module@ mod = Module("sprites/modules/mod_null.png","hp",50);
-	sl_shop[0].setMod(mod);
+	sl_shop[0].setMod(Module("sprites/modules/mod_50hp.png","hp",50));
+	sl_shop[1].setMod(Module("sprites/modules/mod_50sh.png","sh",50));
+	sl_shop[2].setMod(Module("sprites/modules/mod_4dmg.png","dmg",4));
 	//
 }
 
@@ -67,6 +68,11 @@ void loopShop(){
 						}
 						pl.SetFloat("max_sh",pl.GetFloat("max_sh")-mod.getEffectCount());
 					}
+					if(mod.getEffect()=="dmg"){
+						ETHEntity@ pl = SeekEntity("player.ent");
+						pl.SetFloat("min_damage",pl.GetFloat("min_damage")-mod.getEffectCount());
+						pl.SetFloat("max_damage",pl.GetFloat("max_damage")-mod.getEffectCount());
+					}
 			}
 			sl[i].deleteMod();
 			sl[i].setPressed(false);
@@ -96,6 +102,11 @@ void loopShop(){
 							ETHEntity@ pl = SeekEntity("player.ent");
 							pl.SetFloat("shield",pl.GetFloat("shield")+mod.getEffectCount());
 							pl.SetFloat("max_sh",pl.GetFloat("max_sh")+mod.getEffectCount());
+						}
+						if(mod.getEffect()=="dmg"){
+							ETHEntity@ pl = SeekEntity("player.ent");
+							pl.SetFloat("min_damage",pl.GetFloat("min_damage")+mod.getEffectCount());
+							pl.SetFloat("max_damage",pl.GetFloat("max_damage")+mod.getEffectCount());
 						}
 				}
 			}else{

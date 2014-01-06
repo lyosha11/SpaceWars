@@ -42,6 +42,11 @@
             </Variable>
             <Variable>
                 <Type>float</Type>
+                <Name>max_damage</Name>
+                <Value>16</Value>
+            </Variable>
+            <Variable>
+                <Type>float</Type>
                 <Name>max_hp</Name>
                 <Value>100</Value>
             </Variable>
@@ -49,6 +54,11 @@
                 <Type>float</Type>
                 <Name>max_sh</Name>
                 <Value>100</Value>
+            </Variable>
+            <Variable>
+                <Type>float</Type>
+                <Name>min_damage</Name>
+                <Value>8</Value>
             </Variable>
             <Variable>
                 <Type>float</Type>
