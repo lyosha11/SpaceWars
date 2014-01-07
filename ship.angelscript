@@ -79,6 +79,11 @@ void initShip(){
 		vector2 Pos(GetScreenSize() * vector2(x, y));
 		@slotShip[i] = SlotShip(type, Pos);
 	}
+	//Standart items
+	slotShip[0].setMod(Module("Corpus","Standart armor corpus",1,"sprites/modules/std_crp.png","hp",450));
+	slotShip[2].setMod(Module("Shield","Standart shield",2,"sprites/modules/std_sh.png","sh",100));
+	slotShip[4].setMod(Module("Weapon","Standart laser weapon",3,"sprites/modules/std_dmg.png","dmg",7));
+	//
 }
 
 void startShip(){

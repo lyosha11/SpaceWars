@@ -1,5 +1,4 @@
 [G:\EthanonEngine\project\_error.log.txt]
 
-[ERROR] Slot.angelscript, line 52: No matching signatures to 'Module(string, string, const uint, string, const uint)'
-[ERROR] Slot.angelscript, line 52: Can't implicitly convert from 'const int' to 'const Module&'.
+[ERROR] ship.angelscript, line 84: Expected ')' or ','
 ERROR - Failed while building module.
