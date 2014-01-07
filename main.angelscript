@@ -8,6 +8,7 @@
 int level , rockets;
 bool pause = false;
 bool shop = false;
+bool ship = false;
 
 void loadStartScene(){
 	HideCursor(false);
@@ -106,6 +107,7 @@ void createGameScene(){
 	initHud();
 	initPause();
 	initShop();
+	initShip();
 	init(level);
 }
 
@@ -194,7 +196,8 @@ void ETHCallback_shot(ETHEntity@ thisEntity)
 			if (thisEntity.GetPosition().y < 0.0f)
 			{
 					DeleteEntity(thisEntity);
-					print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+					if(debug)
+						print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
 			}
 		}
 }
@@ -209,7 +212,8 @@ void ETHCallback_shotRocket1(ETHEntity@ thisEntity)
 			if (thisEntity.GetPosition().y < 0.0f)
 			{
 					DeleteEntity(thisEntity);
-					print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+					if(debug)
+						print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
 			}
 		}
 }
@@ -224,7 +228,8 @@ void ETHCallback_shot2(ETHEntity@ thisEntity)
 			if (thisEntity.GetPosition().y > 768.0f)
 			{
 					DeleteEntity(thisEntity);
-					print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+					if(debug)
+						print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
 			}
 		}
 }
@@ -239,7 +244,8 @@ void ETHCallback_bonus_rocket(ETHEntity@ thisEntity)
 			if (thisEntity.GetPosition().y > 768.0f)
 			{
 					DeleteEntity(thisEntity);
-					print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+					if(debug)
+						print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
 			}
 		}
 }

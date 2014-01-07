@@ -2,6 +2,7 @@
 #include "main.angelscript"
 #include "pause.angelscript"
 #include "shop.angelscript"
+#include "ship.angelscript"
 
 //DEBUG
 bool debug = true;
@@ -387,10 +388,15 @@ void loop(int level){
 			counter = 0;
 		//
 	}else{
-		if(!shop)
+		if(!shop){
 			loopPause();
-		else
-			loopShop();
+		}else{
+			if(!ship){
+				loopShop();
+			}else{
+				loopShip();
+			}
+		}
 	}
 }
 

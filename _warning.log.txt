@@ -1,5 +1,5 @@
 [G:\EthanonEngine\project\_warning.log.txt]
 
-[WARN ] shop.angelscript, line 59: Signed/Unsigned mismatch
+[WARN ] ship.angelscript, line 111: Signed/Unsigned mismatch
 
-[WARN ] shop.angelscript, line 66: Signed/Unsigned mismatch
+[WARN ] ship.angelscript, line 118: Signed/Unsigned mismatch

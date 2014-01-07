@@ -1,2 +1,5 @@
 [G:\EthanonEngine\project\_error.log.txt]
-Couldn't find the entity to delete: ID90
+
+[ERROR] Slot.angelscript, line 52: No matching signatures to 'Module(string, string, const uint, string, const uint)'
+[ERROR] Slot.angelscript, line 52: Can't implicitly convert from 'const int' to 'const Module&'.
+ERROR - Failed while building module.

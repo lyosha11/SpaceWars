@@ -2,10 +2,11 @@
 #include "pause.angelscript"
 #include "Slot.angelscript"
 #include "Module.angelscript"
+#include "ship.angelscript"
 
 array<Slot@> sl(8);
 array<Slot@> sl_shop(24);
-Button@ ret;
+Button@ ret, shp;
 
 void initShop(){
 	//init sl
@@ -35,52 +36,35 @@ void initShop(){
 		}
 	}
 	//Add module to shop
-	sl_shop[0].setMod(Module("sprites/modules/mod_50hp.png","hp",50));
-	sl_shop[1].setMod(Module("sprites/modules/mod_50sh.png","sh",50));
-	sl_shop[2].setMod(Module("sprites/modules/mod_4dmg.png","dmg",4));
+	sl_shop[0].setMod(Module("+50hp","Increase hp",1,"sprites/modules/mod_50hp.png","hp",50));
+	sl_shop[1].setMod(Module("+50sh","Increase shield",2,"sprites/modules/mod_50sh.png","sh",50));
+	sl_shop[2].setMod(Module("+4dmg","Increase damage",3,"sprites/modules/mod_4dmg.png","dmg",4));
 	//
 }
 
 void startShop(){
 	vector2 retButtonPos(GetScreenSize() * vector2(0.5f, 0.8f));
 	@ret = Button("sprites/return_game.png", retButtonPos);
+	vector2 shpButtonPos(GetScreenSize() * vector2(0.75f, 0.8f));
+	@shp = Button("sprites/ship.png", shpButtonPos);
+}
+
+void showDesc(Slot@ s){
+	if(s.isMouse()){
+		ETHInput@ input = GetInputHandle();
+		vector2 vc2 = input.GetCursorPos();
+		Module@ mod = s.getMod();
+		DrawText(vector2(vc2.x+20, vc2.y+20),mod.getName() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
+		DrawText(vector2(vc2.x+20, vc2.y+40),mod.getDesc() , "Verdana20_shadow.fnt", 0xFFFFFFFF);
+	}
 }
 
 void loopShop(){
-	DrawText(GetScreenSize() * vector2(0.11f, 0.58f), "Ship slots:", "Verdana20_shadow.fnt", 0xFFFFFFFF);
-	//Show ship slots
-	for(uint i=0;i<8;i++){
-		sl[i].put();
-		if(sl[i].isPressed() && sl[i].isMod()){
-			Module@ mod = sl[i].getMod();
-			if(mod.getSprite()!=""){
-					if(mod.getEffect()=="hp"){
-						ETHEntity@ pl = SeekEntity("player.ent");
-						if(pl.GetFloat("hp")>mod.getEffectCount()){
-							pl.SetFloat("hp",pl.GetFloat("hp")-mod.getEffectCount());
-						}
-						pl.SetFloat("max_hp",pl.GetFloat("max_hp")-mod.getEffectCount());
-					}
-					if(mod.getEffect()=="sh"){
-						ETHEntity@ pl = SeekEntity("player.ent");
-						if(pl.GetFloat("shield")>mod.getEffectCount()){
-							pl.SetFloat("shield",pl.GetFloat("shield")-mod.getEffectCount());
-						}
-						pl.SetFloat("max_sh",pl.GetFloat("max_sh")-mod.getEffectCount());
-					}
-					if(mod.getEffect()=="dmg"){
-						ETHEntity@ pl = SeekEntity("player.ent");
-						pl.SetFloat("min_damage",pl.GetFloat("min_damage")-mod.getEffectCount());
-						pl.SetFloat("max_damage",pl.GetFloat("max_damage")-mod.getEffectCount());
-					}
-			}
-			sl[i].deleteMod();
-			sl[i].setPressed(false);
-		}
-	}
+	showShipSlots();
 	//Show shop slots
 	for(uint i=0;i<24;i++){
 		sl_shop[i].put();
+		showDesc(sl_shop[i]);
 		if(sl_shop[i].isPressed()){
 			int smod = -1;
 			for(uint i2=0;i2<8;i2++){
@@ -91,34 +75,23 @@ void loopShop(){
 			}
 			if(smod!=-1){
 				sl[smod].setMod(sl_shop[i].getMod());
-				Module mod = sl[smod].getMod();
-				if(mod.getSprite()!=""){
-						if(mod.getEffect()=="hp"){
-							ETHEntity@ pl = SeekEntity("player.ent");
-							pl.SetFloat("hp",pl.GetFloat("hp")+mod.getEffectCount());
-							pl.SetFloat("max_hp",pl.GetFloat("max_hp")+mod.getEffectCount());
-						}
-						if(mod.getEffect()=="sh"){
-							ETHEntity@ pl = SeekEntity("player.ent");
-							pl.SetFloat("shield",pl.GetFloat("shield")+mod.getEffectCount());
-							pl.SetFloat("max_sh",pl.GetFloat("max_sh")+mod.getEffectCount());
-						}
-						if(mod.getEffect()=="dmg"){
-							ETHEntity@ pl = SeekEntity("player.ent");
-							pl.SetFloat("min_damage",pl.GetFloat("min_damage")+mod.getEffectCount());
-							pl.SetFloat("max_damage",pl.GetFloat("max_damage")+mod.getEffectCount());
-						}
-				}
 			}else{
 				print("smod = -1");
 			}
 			sl_shop[i].setPressed(false);
 		}
 	}
-	//
+	//Put buttons
 	ret.putButton();
+	shp.putButton();
+	//
 	if(ret.isPressed()){
 		shop = false;
 		pause = true;
+	}
+	if(shp.isPressed()){
+		startShip();
+		ship = true;
+		shp.setPressed(false);
 	}
 }

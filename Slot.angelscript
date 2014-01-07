@@ -49,7 +49,7 @@ class Slot
 		mod = obj;
 	}
 	void deleteMod(){
-		mod.setAll("","",0);
+		mod = Module();
 	}
 	bool isMod(){
 		string str = mod.getSprite();
@@ -63,7 +63,17 @@ class Slot
 		return @mod;
 	}
 	
+	
 	//Graphic and pressed
+	bool isMouse()
+	{
+		ETHInput@ input = GetInputHandle();
+		if (isPointInButton(input.GetCursorPos()))
+		{
+			return true;
+		}
+		return false;
+	}
 	vector2 getPos()
 	{
 		return m_pos;
@@ -140,9 +150,8 @@ class Slot
 				}
 			}
 		}
-		
+		//
 	}
-
 	bool isPressed()
 	{
 		return m_isPressed;
@@ -153,4 +162,31 @@ class Slot
 		m_isPressed = pressed;
 	}
 	//
+}
+
+class SlotShip : Slot{
+	private int type;
+	SlotShip(){
+		type = -1;
+		m_spriteName = "sprites/modules/slotShip.png";
+		m_pos = vector2(0,0);
+		LoadSprite(m_spriteName);
+		m_size = GetSpriteFrameSize(m_spriteName);
+		m_origin = vector2(0.5f, 0.5f);
+		m_isPressed = false;
+		mod = Module();
+	}
+	SlotShip(int _type,const vector2 &in _pos, const vector2 &in _origin = vector2(0.5f, 0.5f)){
+		type = _type;
+		m_origin = _origin;
+		m_spriteName = "sprites/modules/slotShip.png";
+		m_pos = _pos;
+		LoadSprite(m_spriteName);
+		m_size = GetSpriteFrameSize(m_spriteName);
+		m_isPressed = false;
+		mod = Module();
+	}
+	int getType(){
+		return type;
+	}
 }
