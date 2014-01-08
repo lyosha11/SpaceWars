@@ -8,6 +8,8 @@ class Module{
 	private float status;
 	private float price;
 	private int max_price;
+	
+	private string bullet;
 	Module(){
 		name = "";
 		desc = "";
@@ -16,6 +18,7 @@ class Module{
 		effectAdd = "";
 		effectCount = 0;
 		price = 0;
+		bullet = "";
 	}
 	Module(string _name, string _desc, int _type, string spriteName, string effAdd, uint effCount, int _price){
 		name = _name;
@@ -27,6 +30,19 @@ class Module{
 		effectAdd = effAdd;
 		effectCount = effCount;
 		status = effectCount;
+		bullet = "";
+	}
+	Module(string _name, string _desc, int _type, string spriteName, string effAdd, uint effCount, int _price, string _bullet){
+		name = _name;
+		desc = _desc;
+		type = _type;
+		price = _price;
+		max_price = price;
+		m_spriteName = spriteName;
+		effectAdd = effAdd;
+		effectCount = effCount;
+		status = effectCount;
+		bullet = _bullet;
 	}
 	void setAll(string spriteName, string effAdd, uint effCount){
 		m_spriteName = spriteName;
@@ -81,4 +97,7 @@ class Module{
 		}
 		return "Non-type";
 	}
-}
+	string getBullet(){
+		return bullet;
+	}
+};

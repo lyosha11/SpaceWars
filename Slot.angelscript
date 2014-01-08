@@ -44,7 +44,9 @@ class Slot
 		m_isPressed = false;
 		mod = Module();
 	}
-	
+	void setStatusMod(int st){
+		mod.setStatus(st);
+	}
 	void setMod(Module@ obj){
 		mod = obj;
 	}
@@ -62,7 +64,6 @@ class Slot
 	Module@ getMod(){
 		return @mod;
 	}
-	
 	
 	//Graphic and pressed
 	bool isMouse()

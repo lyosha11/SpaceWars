@@ -56,7 +56,7 @@ void showShipSlots(){
 		showDesc(sl[i]);
 }
 
-Button@ retShip;
+Button@ retShip, charging;
 ETHEntity@ pl;
 array<SlotShip@> slotShip(7);
 uint count_slot = 7;
@@ -98,7 +98,7 @@ void initShip(){
 	//Standart items
 	slotShip[0].setMod(Module("Corpus","Standart armor corpus.",1,"sprites/modules/std_crp.png","hp",500,0));
 	slotShip[2].setMod(Module("Shield","Standart shield.",2,"sprites/modules/std_sh.png","sh",100,0));
-	slotShip[4].setMod(Module("Weapon","Standart laser weapon.",3,"sprites/modules/std_dmg.png","dmg",7,0));
+	slotShip[4].setMod(Module("Weapon","Standart laser weapon.",3,"sprites/modules/std_dmg.png","dmg",7,0,"shot.ent"));
 	slotShip[6].setMod(Module("Battery","Standart battery.",4,"sprites/modules/std_en.png","en",100,0));
 	//
 }
@@ -106,6 +106,8 @@ void initShip(){
 void startShip(){
 	vector2 retShipButtonPos(GetScreenSize() * vector2(0.75f, 0.8f));
 	@retShip = Button("sprites/shop.png", retShipButtonPos);
+	vector2 chargingShipButtonPos(GetScreenSize() * vector2(0.75f, 0.5f));
+	@charging = Button("sprites/charging.png", chargingShipButtonPos);
 }
 
 void loopShip(){
@@ -177,11 +179,26 @@ void loopShip(){
 	DrawText(GetScreenSize() * vector2(0.10f, 0.30f), "en:"+pl.GetFloat("en")+"/"+pl.GetFloat("max_en"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 	DrawText(GetScreenSize() * vector2(0.10f, 0.35f), "Min_damage:"+pl.GetFloat("min_damage"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 	DrawText(GetScreenSize() * vector2(0.10f, 0.40f), "Max_damage:"+pl.GetFloat("max_damage"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+	//Buttons
 	retShip.putButton();
+	charging.putButton();
 	if(retShip.isPressed()){
 		ship = false;
 		shop = true;
 	}
+	Module@ mod = slotShip[6].getMod();
+	int pr = (mod.getEffectCount() - pl.GetFloat("en")) * 2;
+	if(charging.isPressed()){
+		int slt = 6;
+		if(pl.GetFloat("en")<mod.getEffectCount()){
+			if(pl.GetInt("money")>=pr){
+				pl.SetFloat("en",mod.getEffectCount());
+				pl.SetInt("money",pl.GetInt("money")-pr);
+			}
+		}
+		charging.setPressed(false);
+	}
+	DrawText(GetScreenSize() * vector2(0.75f, 0.49f), "Price:"+pr, "Verdana20_shadow.fnt", 0xFFFFFFFF);
 	//
 	showShipSlots();
 	//Description

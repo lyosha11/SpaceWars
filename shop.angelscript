@@ -56,7 +56,7 @@ void changeLevelShop(){
 		sl_shopS++;
 	}
 	if(level==4){
-		sl_shop[sl_shopS].setMod(Module("Big weapon","Big weapon.Gives good power fire.",3,"sprites/modules/mod_big_dmg.png","dmg",10,600));
+		sl_shop[sl_shopS].setMod(Module("Big weapon","Big weapon.Gives good power fire.",3,"sprites/modules/mod_big_dmg.png","dmg",10,600,"shot3.ent"));
 		sl_shopS++;
 	}
 }

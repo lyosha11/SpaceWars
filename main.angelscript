@@ -4,6 +4,7 @@
 #include "levels.angelscript"
 #include "hud.angelscript"
 #include "shop.angelscript"
+#include "ship.angelscript"
 
 int level , rockets;
 bool pause = false;
@@ -152,7 +153,17 @@ void ETHCallback_player(ETHEntity@ thisEntity){
 						tmp.x = tmp.x+33;
 					else
 						tmp.x = tmp.x-33;
-					int id = AddEntity("shot.ent",tmp);
+					string bullet = "shot.ent";
+					for(uint i=0;i<count_slot;i++){
+						if(slotShip[i].getType()==3){
+							Module@ mod = slotShip[i].getMod();
+							if(mod.getType()==3){
+								bullet = mod.getBullet();
+								break;
+							}
+						}
+					}
+					int id = AddEntity(bullet,tmp);
 					PlaySample("soundfx/shoot.mp3");
 					if(tmp_fire)
 						tmp_fire = false;
@@ -193,6 +204,22 @@ void addLevel(){
 }
 
 void ETHCallback_shot(ETHEntity@ thisEntity)
+{
+		if(!pause){
+			float speed = UnitsPerSecond(360.0f);
+			thisEntity.AddToPositionXY(vector2(0.0f,-1.0f) * speed);
+
+			// if the projectile goes out of the screen view, delete it
+			if (thisEntity.GetPosition().y < 0.0f)
+			{
+					DeleteEntity(thisEntity);
+					if(debug)
+						print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+			}
+		}
+}
+
+void ETHCallback_shot3(ETHEntity@ thisEntity)
 {
 		if(!pause){
 			float speed = UnitsPerSecond(360.0f);
