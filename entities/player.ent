@@ -36,6 +36,11 @@
         </Collision>
         <CustomData>
             <Variable>
+                <Type>float</Type>
+                <Name>en</Name>
+                <Value>100</Value>
+            </Variable>
+            <Variable>
                 <Type>int</Type>
                 <Name>hp</Name>
                 <Value>100</Value>
@@ -44,6 +49,11 @@
                 <Type>float</Type>
                 <Name>max_damage</Name>
                 <Value>16</Value>
+            </Variable>
+            <Variable>
+                <Type>float</Type>
+                <Name>max_en</Name>
+                <Value>0</Value>
             </Variable>
             <Variable>
                 <Type>float</Type>
@@ -59,6 +69,11 @@
                 <Type>float</Type>
                 <Name>min_damage</Name>
                 <Value>8</Value>
+            </Variable>
+            <Variable>
+                <Type>int</Type>
+                <Name>money</Name>
+                <Value>0</Value>
             </Variable>
             <Variable>
                 <Type>float</Type>

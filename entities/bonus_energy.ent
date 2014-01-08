@@ -1,8 +1,7 @@
 <?xml version="1.0" ?>
 <Ethanon>
     <Entity shape="0" applyLight="0" castShadow="0" type="0" static="0" blendMode="0">
-        <Sprite>ammo-rocket.png</Sprite>
-        <Normal>bonus.png</Normal>
+        <Sprite>ammo-energy.png</Sprite>
         <Particles />
         <CustomData>
             <Variable>
@@ -13,7 +12,7 @@
             <Variable>
                 <Type>int</Type>
                 <Name>type</Name>
-                <Value>1</Value>
+                <Value>2</Value>
             </Variable>
         </CustomData>
     </Entity>

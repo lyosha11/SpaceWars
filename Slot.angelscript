@@ -186,6 +186,16 @@ class SlotShip : Slot{
 		m_isPressed = false;
 		mod = Module();
 	}
+	SlotShip(string sprite,int _type,const vector2 &in _pos, const vector2 &in _origin = vector2(0.5f, 0.5f)){
+		type = _type;
+		m_origin = _origin;
+		m_spriteName = sprite;
+		m_pos = _pos;
+		LoadSprite(m_spriteName);
+		m_size = GetSpriteFrameSize(m_spriteName);
+		m_isPressed = false;
+		mod = Module();
+	}
 	int getType(){
 		return type;
 	}

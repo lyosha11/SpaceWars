@@ -126,6 +126,9 @@ void ETHCallback_player(ETHEntity@ thisEntity){
 				initPause();
 				startPause();
 			}
+			if(input.GetKeyState(K_W) == KS_HIT){
+				addLevel();
+			}
 		}
 		if(alivePlayer){
 			float speed = 5.0f;
@@ -142,19 +145,22 @@ void ETHCallback_player(ETHEntity@ thisEntity){
 				thisEntity.AddToPositionXY(vector2(0.0f, speed));
 				
 			if (input.GetKeyState(K_SPACE) == KS_HIT){
-				vector3 tmp = thisEntity.GetPosition();
-				tmp.y = tmp.y-35;
-				if(tmp_fire)
-					tmp.x = tmp.x+33;
-				else
-					tmp.x = tmp.x-33;
-				int id = AddEntity("shot.ent",tmp);
-				PlaySample("soundfx/shoot.mp3");
-				if(tmp_fire)
-					tmp_fire = false;
-				else
-					tmp_fire = true;
-				insertBullet(SeekEntity(id));
+				if(thisEntity.GetFloat("en")>0){
+					vector3 tmp = thisEntity.GetPosition();
+					tmp.y = tmp.y-35;
+					if(tmp_fire)
+						tmp.x = tmp.x+33;
+					else
+						tmp.x = tmp.x-33;
+					int id = AddEntity("shot.ent",tmp);
+					PlaySample("soundfx/shoot.mp3");
+					if(tmp_fire)
+						tmp_fire = false;
+					else
+						tmp_fire = true;
+					insertBullet(SeekEntity(id));
+					thisEntity.SetFloat("en",thisEntity.GetFloat("en")-1);
+				}
 			}
 			
 			if (input.GetKeyState(K_CTRL) == KS_HIT){
@@ -235,6 +241,22 @@ void ETHCallback_shot2(ETHEntity@ thisEntity)
 }
 
 void ETHCallback_bonus_rocket(ETHEntity@ thisEntity)
+{
+		if(!pause){
+			float speed = UnitsPerSecond(250.0f);
+			thisEntity.AddToPositionXY(vector2(0.0f,1.0f) * speed);
+
+			// if the projectile goes out of the screen view, delete it
+			if (thisEntity.GetPosition().y > 768.0f)
+			{
+					DeleteEntity(thisEntity);
+					if(debug)
+						print("projectile removed because it is no longer visible: ID " + thisEntity.GetID());
+			}
+		}
+}
+
+void ETHCallback_bonus_energy(ETHEntity@ thisEntity)
 {
 		if(!pause){
 			float speed = UnitsPerSecond(250.0f);

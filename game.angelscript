@@ -5,7 +5,7 @@
 #include "ship.angelscript"
 
 //DEBUG
-bool debug = true;
+bool debug = false;
 //
 
 bool collision(ETHEntity@ obj1, ETHEntity@ obj2){
@@ -49,6 +49,8 @@ bool fireAI(ETHEntity@ obj){
 ETHEntityArray enemys , bullets , eff, bonus;
 bool alivePlayer = true;
 int counter = 0;
+int enemyMinDamage = 8 , enemyMaxDamage = 16;
+int minMoney = 10, maxMoney = 100;
 
 void insertBullet(ETHEntity@ obj){
 	bullets.Insert(obj);
@@ -75,6 +77,8 @@ void init(int level){
 		pl.SetFloat("max_hp",500);
 		pl.SetFloat("shield",100);
 		pl.SetFloat("max_sh",100);
+		pl.SetFloat("en",100);
+		pl.SetFloat("max_en",100);
 		alivePlayer = true;
 		//LOAD SOUNDS
 		LoadSoundEffect("soundfx/shoot.mp3");
@@ -88,8 +92,12 @@ void init(int level){
 		AddEntity("background"+rand(1,4)+".ent",center,"background");
 		//
 	}
+	//Refresh shop
+	changeLevelShop();
+	//Add min\max money
+	minMoney = minMoney + rand(1,4);
+	maxMoney = maxMoney + rand(10,30);
 	//
-	
 	int size = changeLevel(level);
 	for(int i=0;i<size;i++){
 		ETHEntity@ obj = SeekEntity("enemy"+i);
@@ -110,6 +118,7 @@ void loop(int level){
 		//Text
 		DrawText(GetScreenSize() * vector2(0.02f, 0.84f), "Level: "+level, "Verdana20_shadow.fnt", 0xFFFFFFFF);
 		DrawText(GetScreenSize() * vector2(0.02f, 0.80f), "Rockets: "+rockets, "Verdana20_shadow.fnt", 0xFFFFFFFF);
+		DrawText(GetScreenSize() * vector2(0.02f, 0.76f), "Money: "+pl.GetInt("money"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 		if(debug){
 			DrawText(vector2(0, 0), "FPS: "+GetFPSRate(), "Verdana20.fnt", 0xFFFFFFFF);
 			DrawText(vector2(0,15), "enemys.Size(): "+numEnemys, "Verdana20.fnt", 0xFFFFFFFF);
@@ -117,7 +126,7 @@ void loop(int level){
 			DrawText(vector2(0,45), "eff.Size(): "+numEff, "Verdana20.fnt", 0xFFFFFFFF);
 		}
 		//
-		//collision bullets
+		//collision player bullets
 		for (uint i = 0; i < numEnemys; i++){
 			for (uint i2 = 0; i2 < numBullets; i2++){
 				if(bullets[i2].GetInt("type")!=1 && bullets[i2].GetInt("type")!=3)
@@ -132,6 +141,13 @@ void loop(int level){
 						if(enemys[i].GetFloat("hp")<=0){
 							int id = AddEntity("eff2.ent",enemys[i].GetPosition());
 							eff.Insert(SeekEntity(id));
+							pl.SetInt("money",pl.GetInt("money")+rand(minMoney,maxMoney));
+							//ENEMY BIG (money_x3)
+							if(enemys[i].GetInt("type")>4 && enemys[i].GetInt("type")<=8){
+								pl.SetInt("money",pl.GetInt("money")+rand(minMoney,maxMoney));
+								pl.SetInt("money",pl.GetInt("money")+rand(minMoney,maxMoney));
+							}
+							//
 							DeleteEntity(enemys[i]);
 							DeleteEntity(bullets[i2]);
 							break;
@@ -158,19 +174,29 @@ void loop(int level){
 		if(alivePlayer){
 			ETHEntity@ pl = SeekEntity("player.ent");
 			//SHIELD REGEN
-			if(pl.GetFloat("shield")<100){
+			if(pl.GetFloat("shield")<pl.GetFloat("max_sh")){
 				if(counter%100==0){
-					pl.SetFloat("shield",pl.GetFloat("shield")+1);
+					if(pl.GetFloat("en")>0){
+						pl.SetFloat("shield",pl.GetFloat("shield")+1);
+						pl.SetFloat("en",pl.GetFloat("en")-1);
+					}
+				}
+			}
+			//ENERGY REGEN
+			if(pl.GetFloat("en")<pl.GetFloat("max_en")){
+				if(counter%500==0){
+					pl.SetFloat("en",pl.GetFloat("en")+1);
 				}
 			}
 			//
 			DrawText(vector2(20,100), "hp: "+pl.GetFloat("hp")+"/"+pl.GetFloat("max_hp"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 			DrawText(vector2(20,115), "sh: "+pl.GetFloat("shield")+"/"+pl.GetFloat("max_sh"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+			DrawText(vector2(20,130), "en: "+pl.GetFloat("en")+"/"+pl.GetFloat("max_en"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 			for (uint i2 = 0; i2 < numBullets; i2++){
 				if(bullets[i2].GetInt("type")!=2)
 					continue;
 					if(collision(@pl,@bullets[i2]) && !bullets[i2].IsHidden() && bullets[i2].GetInt("type")==2){
-							float damage = rand(8,16);
+							float damage = rand(enemyMinDamage,enemyMaxDamage);
 							if(pl.GetFloat("shield")>=damage){
 								pl.SetFloat("shield",pl.GetFloat("shield")-damage);
 								int id = AddEntity("shPlayerEff.ent",bullets[i2].GetPosition());
@@ -199,7 +225,15 @@ void loop(int level){
 			if(numBonus>0){
 				for(uint i=0;i<numBonus;i++){
 					if(collision(pl,bonus[i])){
-						rockets = rockets + 20;
+						if(bonus[i].GetInt("type")==1){
+							rockets = rockets + 20;
+						}
+						if(bonus[i].GetInt("type")==2){
+							if(pl.GetFloat("en")<=pl.GetFloat("max_en")-20)
+								pl.SetFloat("en",pl.GetFloat("en")+20);
+							else
+								pl.SetFloat("en",pl.GetFloat("max_en"));
+						}
 						DeleteEntity(bonus[i]);
 						PlaySample("soundfx/bonusPickUp.mp3");
 					}
@@ -372,12 +406,15 @@ void loop(int level){
 		//Random bonus
 		uint rnd = rand(1,1000);
 		if(rnd==1){
-			rnd = rand(1,1);
+			rnd = rand(1,2);
+			int min_x=130, max_x=1000, y=-1, z=0;
 			if(rnd==1){
-				uint id = AddEntity("bonus_rocket.ent",vector3(rand(10,760),-10,0));
+				uint id = AddEntity("bonus_rocket.ent",vector3(rand(min_x,max_x),y,z));
 				bonus.Insert(SeekEntity(id));
-			}else{
-				//Bonus2
+			}
+			if(rnd==2){
+				uint id = AddEntity("bonus_energy.ent",vector3(rand(min_x,max_x),y,z));
+				bonus.Insert(SeekEntity(id));
 			}
 		}
 		//

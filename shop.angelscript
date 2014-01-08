@@ -6,9 +6,12 @@
 
 array<Slot@> sl(8);
 array<Slot@> sl_shop(24);
+int sl_shopS = 0;
 Button@ ret, shp;
 
 void initShop(){
+	//init shop
+	sl_shopS = 0;
 	//init sl
 	for(uint i=0;i<8;i++){
 		float x = 0.135f;
@@ -36,10 +39,26 @@ void initShop(){
 		}
 	}
 	//Add module to shop
-	sl_shop[0].setMod(Module("+50hp","Increase hp",1,"sprites/modules/mod_50hp.png","hp",50));
-	sl_shop[1].setMod(Module("+50sh","Increase shield",2,"sprites/modules/mod_50sh.png","sh",50));
-	sl_shop[2].setMod(Module("+4dmg","Increase damage",3,"sprites/modules/mod_4dmg.png","dmg",4));
+	sl_shop[sl_shopS].setMod(Module("+50hp","Increase hp.",1,"sprites/modules/mod_50hp.png","hp",50,200));
+	sl_shopS++;
+	sl_shop[sl_shopS].setMod(Module("+50sh","Increase shield.",2,"sprites/modules/mod_50sh.png","sh",50,300));
+	sl_shopS++;
+	sl_shop[sl_shopS].setMod(Module("+4dmg","Increase damage.",3,"sprites/modules/mod_4dmg.png","dmg",4,250));
+	sl_shopS++;
 	//
+}
+
+void changeLevelShop(){
+	if(level==3){
+		sl_shop[sl_shopS].setMod(Module("Big corpus","Big corpus.Gives good armoring.",1,"sprites/modules/std_crp.png","hp",650,400));
+		sl_shopS++;
+		sl_shop[sl_shopS].setMod(Module("Big battery","Big battery.Gives good power.",4,"sprites/modules/std_en.png","en",150,500));
+		sl_shopS++;
+	}
+	if(level==4){
+		sl_shop[sl_shopS].setMod(Module("Big weapon","Big weapon.Gives good power fire.",3,"sprites/modules/std_dmg.png","dmg",10,600));
+		sl_shopS++;
+	}
 }
 
 void startShop(){
@@ -49,13 +68,29 @@ void startShop(){
 	@shp = Button("sprites/ship.png", shpButtonPos);
 }
 
-void showDesc(Slot@ s){
+void showDesc(Slot@ s,bool st = true){
 	if(s.isMouse()){
 		ETHInput@ input = GetInputHandle();
 		vector2 vc2 = input.GetCursorPos();
 		Module@ mod = s.getMod();
-		DrawText(vector2(vc2.x+20, vc2.y+20),mod.getName() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
-		DrawText(vector2(vc2.x+20, vc2.y+40),mod.getDesc() , "Verdana20_shadow.fnt", 0xFFFFFFFF);
+		if(mod.getType()>0){
+			if(st){
+				DrawText(vector2(vc2.x+20, vc2.y+20),mod.getName() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
+				DrawText(vector2(vc2.x+20, vc2.y+40),"type:"+mod.getTypeString() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
+				if(mod.getType()!=3)
+					DrawText(vector2(vc2.x+20, vc2.y+60),"status:"+mod.getStatus()+"/"+mod.getEffectCount() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
+				else
+					DrawText(vector2(vc2.x+20, vc2.y+60),"damage:"+mod.getEffectCount() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
+				DrawText(vector2(vc2.x+20, vc2.y+80),"price:"+mod.getPrice() , "Verdana20_shadow.fnt", 0xFFFFFFFF);
+				DrawText(vector2(vc2.x+20, vc2.y+100),mod.getDesc() , "Verdana20_shadow.fnt", 0xFFFFFFFF);
+			}else{
+				DrawText(vector2(vc2.x+20, vc2.y+20),mod.getName() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
+				DrawText(vector2(vc2.x+20, vc2.y+40),"type:"+mod.getTypeString() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
+				//DrawText(vector2(vc2.x+20, vc2.y+60),"price:"+mod.getPrice() , "Verdana20_shadow.fnt", 0xFFFFFFFF);
+				DrawText(vector2(vc2.x+20, vc2.y+60),mod.getDesc() , "Verdana20_shadow.fnt", 0xFFFFFFFF);
+			}
+			
+		}
 	}
 }
 
@@ -64,7 +99,6 @@ void loopShop(){
 	//Show shop slots
 	for(uint i=0;i<24;i++){
 		sl_shop[i].put();
-		showDesc(sl_shop[i]);
 		if(sl_shop[i].isPressed()){
 			int smod = -1;
 			for(uint i2=0;i2<8;i2++){
@@ -74,13 +108,21 @@ void loopShop(){
 				}
 			}
 			if(smod!=-1){
-				sl[smod].setMod(sl_shop[i].getMod());
+				ETHEntity@ pl = SeekEntity("player.ent");
+				Module mod = sl_shop[i].getMod();
+				if(pl.GetInt("money")>=mod.getPrice()){
+					sl[smod].setMod(sl_shop[i].getMod());
+					pl.SetInt("money",pl.GetInt("money")-mod.getPrice());
+				}
 			}else{
 				print("smod = -1");
 			}
 			sl_shop[i].setPressed(false);
 		}
 	}
+	//Description
+	for(uint i=0;i<24;i++)
+		showDesc(sl_shop[i]);
 	//Put buttons
 	ret.putButton();
 	shp.putButton();

@@ -1,4 +1,3 @@
 [G:\EthanonEngine\project\_error.log.txt]
-
-[ERROR] ship.angelscript, line 84: Expected ')' or ','
-ERROR - Failed while building module.
+Couldn't find the entity to delete: ID122
+Couldn't find the entity to delete: ID121
