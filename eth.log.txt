@@ -26,7 +26,7 @@ Backbuffer created as 1024, 768 on default backbuffer mode
 (Loaded) shoot2.mp3
 (Loaded) shootRocket1.mp3
 (Loaded) bonusPickUp.mp3
-(Loaded) layer4.png
+(Loaded) layer1.png
 (Loaded) enemy2-2.png
 (Loaded) enemy2_normalMap.png
 (Loaded) enemy2Eff.png
@@ -34,17 +34,17 @@ Backbuffer created as 1024, 768 on default backbuffer mode
 (Loaded) enemy1Eff.png
 (Loaded) 1e.png
 (Loaded) 1e_normalMap.png
-(Loaded) shieldPlayer.png
-(Loaded) 1p.png
-(Loaded) 1p_normalMap.png
 (Loaded) 1r.png
 (Loaded) rocketEff.png
+(Loaded) 1p.png
+(Loaded) 1p_normalMap.png
 (Loaded) 1b.png
 (Loaded) 2b.png
 (Loaded) 3b.png
 (Loaded) 4b.png
 (Loaded) 5b.png
 (Loaded) 6b.png
+(Loaded) shieldPlayer.png
 (Loaded) 1d.png
 (Loaded) 2d.png
 (Loaded) 3d.png
@@ -54,6 +54,7 @@ Backbuffer created as 1024, 768 on default backbuffer mode
 (Loaded) 7d.png
 (Loaded) 8d.png
 (Loaded) 9d.png
+Couldn't find the entity to delete: ID97
 (Loaded) bg.png
 (Loaded) pause_next.png
 (Loaded) shop.png
@@ -67,3 +68,7 @@ Backbuffer created as 1024, 768 on default backbuffer mode
 (Loaded) mod_50hp.png
 (Loaded) mod_50sh.png
 (Loaded) mod_4dmg.png
+(Loaded) std_crp.png
+(Loaded) std_sh.png
+(Loaded) std_dmg.png
+(Loaded) std_en.png

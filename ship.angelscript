@@ -48,13 +48,12 @@ void showShipSlots(){
 			//
 		}
 	}
-	//Description
-	for(uint i=0;i<8;i++)
-		showDesc(sl[i]);
 	//Show money
 	ETHEntity@ pl = SeekEntity("player.ent");
 	DrawText(GetScreenSize() * vector2(0.11f, 0.76f), "Money: "+pl.GetInt("money"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
-	//
+	//Description
+	for(uint i=0;i<8;i++)
+		showDesc(sl[i]);
 }
 
 Button@ retShip;
@@ -170,9 +169,6 @@ void loopShip(){
 			slotShip[i].setPressed(false);
 		}
 	}
-	//Description
-	for(uint i=0;i<count_slot;i++)
-		showDesc(slotShip[i], false);
 	//
 	@pl = SeekEntity("player.ent");
 	DrawText(GetScreenSize() * vector2(0.10f, 0.15f), "Ship stats:", "Verdana24_shadow.fnt", 0xFFFFFFFF);
@@ -181,10 +177,14 @@ void loopShip(){
 	DrawText(GetScreenSize() * vector2(0.10f, 0.30f), "en:"+pl.GetFloat("en")+"/"+pl.GetFloat("max_en"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 	DrawText(GetScreenSize() * vector2(0.10f, 0.35f), "Min_damage:"+pl.GetFloat("min_damage"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 	DrawText(GetScreenSize() * vector2(0.10f, 0.40f), "Max_damage:"+pl.GetFloat("max_damage"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
-	showShipSlots();
 	retShip.putButton();
 	if(retShip.isPressed()){
 		ship = false;
 		shop = true;
 	}
+	//
+	showShipSlots();
+	//Description
+	for(uint i=0;i<count_slot;i++)
+		showDesc(slotShip[i], false);
 }

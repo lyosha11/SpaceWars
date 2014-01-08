@@ -50,13 +50,13 @@ void initShop(){
 
 void changeLevelShop(){
 	if(level==3){
-		sl_shop[sl_shopS].setMod(Module("Big corpus","Big corpus.Gives good armoring.",1,"sprites/modules/std_crp.png","hp",650,400));
+		sl_shop[sl_shopS].setMod(Module("Big corpus","Big corpus.Gives good armoring.",1,"sprites/modules/mod_big_crp.png","hp",650,400));
 		sl_shopS++;
-		sl_shop[sl_shopS].setMod(Module("Big battery","Big battery.Gives good power.",4,"sprites/modules/std_en.png","en",150,500));
+		sl_shop[sl_shopS].setMod(Module("Big battery","Big battery.Gives good power.",4,"sprites/modules/mod_big_en.png","en",150,500));
 		sl_shopS++;
 	}
 	if(level==4){
-		sl_shop[sl_shopS].setMod(Module("Big weapon","Big weapon.Gives good power fire.",3,"sprites/modules/std_dmg.png","dmg",10,600));
+		sl_shop[sl_shopS].setMod(Module("Big weapon","Big weapon.Gives good power fire.",3,"sprites/modules/mod_big_dmg.png","dmg",10,600));
 		sl_shopS++;
 	}
 }
@@ -95,7 +95,6 @@ void showDesc(Slot@ s,bool st = true){
 }
 
 void loopShop(){
-	showShipSlots();
 	//Show shop slots
 	for(uint i=0;i<24;i++){
 		sl_shop[i].put();
@@ -120,9 +119,6 @@ void loopShop(){
 			sl_shop[i].setPressed(false);
 		}
 	}
-	//Description
-	for(uint i=0;i<24;i++)
-		showDesc(sl_shop[i]);
 	//Put buttons
 	ret.putButton();
 	shp.putButton();
@@ -136,4 +132,9 @@ void loopShop(){
 		ship = true;
 		shp.setPressed(false);
 	}
+	//
+	showShipSlots();
+	//Description
+	for(uint i=0;i<24;i++)
+		showDesc(sl_shop[i]);
 }
