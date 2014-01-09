@@ -38,6 +38,9 @@ void showShipSlots(){
 								pl.SetFloat("en",pl.GetFloat("en")+mod.getStatus());
 								pl.SetFloat("max_en",pl.GetFloat("max_en")+mod.getEffectCount());
 							}
+							if(mod.getEffect()=="speed"){
+								pl.SetFloat("speed",mod.getEffectCount());
+							}
 						}
 						sl[i].deleteMod();
 						break;
@@ -58,8 +61,8 @@ void showShipSlots(){
 
 Button@ retShip, charging;
 ETHEntity@ pl;
-array<SlotShip@> slotShip(7);
-uint count_slot = 7;
+array<SlotShip@> slotShip(8);
+uint count_slot = 8;
 
 void initShip(){
 	int type = 1;
@@ -92,6 +95,11 @@ void initShip(){
 			y = 0.4f;
 			type++;
 		}
+		if(i==7){
+			x = 0.6f;
+			y = 0.4f;
+			type++;
+		}
 		vector2 Pos(GetScreenSize() * vector2(x, y));
 		@slotShip[i] = SlotShip("sprites/modules/slotShip"+type+".png",type, Pos);
 	}
@@ -100,13 +108,14 @@ void initShip(){
 	slotShip[2].setMod(Module("Shield","Standart shield.",2,"sprites/modules/std_sh.png","sh",100,0));
 	slotShip[4].setMod(Module("Weapon","Standart laser weapon.",3,"sprites/modules/std_dmg.png","dmg",7,0,"shot.ent"));
 	slotShip[6].setMod(Module("Battery","Standart battery.",4,"sprites/modules/std_en.png","en",100,0));
+	slotShip[7].setMod(Module("Engine","Standart engine.",5,"sprites/modules/std_engine.png","speed",5,0));
 	//
 }
 
 void startShip(){
 	vector2 retShipButtonPos(GetScreenSize() * vector2(0.75f, 0.8f));
 	@retShip = Button("sprites/shop.png", retShipButtonPos);
-	vector2 chargingShipButtonPos(GetScreenSize() * vector2(0.75f, 0.5f));
+	vector2 chargingShipButtonPos(GetScreenSize() * vector2(0.80f, 0.5f));
 	@charging = Button("sprites/charging.png", chargingShipButtonPos);
 }
 
@@ -157,6 +166,9 @@ void loopShip(){
 								pl.SetFloat("en",pl.GetFloat("en")-mod.getStatus());
 								pl.SetFloat("max_en",pl.GetFloat("max_en")-mod.getEffectCount());
 							}
+							if(mod.getEffect()=="speed"){
+								pl.SetFloat("speed",0);
+							}
 						}
 			//Set price to status
 			if(mod.getType()!=3){
@@ -177,8 +189,9 @@ void loopShip(){
 	DrawText(GetScreenSize() * vector2(0.10f, 0.20f), "hp:"+pl.GetFloat("hp")+"/"+pl.GetFloat("max_hp"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 	DrawText(GetScreenSize() * vector2(0.10f, 0.25f), "sh:"+pl.GetFloat("shield")+"/"+pl.GetFloat("max_sh"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 	DrawText(GetScreenSize() * vector2(0.10f, 0.30f), "en:"+pl.GetFloat("en")+"/"+pl.GetFloat("max_en"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
-	DrawText(GetScreenSize() * vector2(0.10f, 0.35f), "Min_damage:"+pl.GetFloat("min_damage"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
-	DrawText(GetScreenSize() * vector2(0.10f, 0.40f), "Max_damage:"+pl.GetFloat("max_damage"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+	DrawText(GetScreenSize() * vector2(0.10f, 0.35f), "Speed:"+pl.GetFloat("speed"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+	DrawText(GetScreenSize() * vector2(0.10f, 0.40f), "Min_damage:"+pl.GetFloat("min_damage"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
+	DrawText(GetScreenSize() * vector2(0.10f, 0.45f), "Max_damage:"+pl.GetFloat("max_damage"), "Verdana20_shadow.fnt", 0xFFFFFFFF);
 	//Buttons
 	retShip.putButton();
 	charging.putButton();
@@ -198,7 +211,7 @@ void loopShip(){
 		}
 		charging.setPressed(false);
 	}
-	DrawText(GetScreenSize() * vector2(0.75f, 0.49f), "Price:"+pr, "Verdana20_shadow.fnt", 0xFFFFFFFF);
+	DrawText(GetScreenSize() * vector2(0.80f, 0.49f), "Price:"+pr, "Verdana20_shadow.fnt", 0xFFFFFFFF);
 	//
 	showShipSlots();
 	//Description

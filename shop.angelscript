@@ -58,6 +58,8 @@ void changeLevelShop(){
 	if(level==4){
 		sl_shop[sl_shopS].setMod(Module("Big weapon","Big weapon.Gives good power fire.",3,"sprites/modules/mod_big_dmg.png","dmg",10,600,"shot3.ent"));
 		sl_shopS++;
+		sl_shop[sl_shopS].setMod(Module("Big Engine","Big engine.Gives good speed.",5,"sprites/modules/mod_big_engine.png","speed",8,600));
+		sl_shopS++;
 	}
 }
 
@@ -77,10 +79,12 @@ void showDesc(Slot@ s,bool st = true){
 			if(st){
 				DrawText(vector2(vc2.x+20, vc2.y+20),mod.getName() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
 				DrawText(vector2(vc2.x+20, vc2.y+40),"type:"+mod.getTypeString() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
-				if(mod.getType()!=3)
+				if(mod.getType()==1 || mod.getType()==2 || mod.getType()==4)
 					DrawText(vector2(vc2.x+20, vc2.y+60),"status:"+mod.getStatus()+"/"+mod.getEffectCount() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
-				else
+				if(mod.getType()==3)
 					DrawText(vector2(vc2.x+20, vc2.y+60),"damage:"+mod.getEffectCount() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
+				if(mod.getType()==5)
+					DrawText(vector2(vc2.x+20, vc2.y+60),"speed:"+mod.getEffectCount() , "Verdana24_shadow.fnt", 0xFFFFFFFF);
 				DrawText(vector2(vc2.x+20, vc2.y+80),"price:"+mod.getPrice() , "Verdana20_shadow.fnt", 0xFFFFFFFF);
 				DrawText(vector2(vc2.x+20, vc2.y+100),mod.getDesc() , "Verdana20_shadow.fnt", 0xFFFFFFFF);
 			}else{

@@ -86,6 +86,11 @@
                 <Value>100</Value>
             </Variable>
             <Variable>
+                <Type>float</Type>
+                <Name>speed</Name>
+                <Value>0</Value>
+            </Variable>
+            <Variable>
                 <Type>int</Type>
                 <Name>type</Name>
                 <Value>-1</Value>

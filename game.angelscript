@@ -79,6 +79,7 @@ void init(int level){
 		pl.SetFloat("max_sh",100);
 		pl.SetFloat("en",100);
 		pl.SetFloat("max_en",100);
+		pl.SetFloat("speed",5);
 		alivePlayer = true;
 		//LOAD SOUNDS
 		LoadSoundEffect("soundfx/shoot.mp3");

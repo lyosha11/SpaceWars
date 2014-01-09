@@ -92,6 +92,8 @@ class Module{
 			return "Weapon";
 			case 4:
 			return "Battery";
+			case 5:
+			return "Engine";
 			default:
 			return "Non-type";
 		}
