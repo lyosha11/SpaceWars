@@ -5,7 +5,7 @@ ____________________________
 Loading game script from source-code: main.angelscript
 
 
-Compile time: 63 milliseconds
+Compile time: 62 milliseconds
 Backbuffer created as 1024, 768 on default backbuffer mode
 (Loaded) layer4.png
 (Loaded) start_game.png
@@ -45,6 +45,15 @@ Backbuffer created as 1024, 768 on default backbuffer mode
 (Loaded) 4b.png
 (Loaded) 5b.png
 (Loaded) 6b.png
+(Loaded) 1d.png
+(Loaded) 2d.png
+(Loaded) 3d.png
+(Loaded) 4d.png
+(Loaded) 5d.png
+(Loaded) 6d.png
+(Loaded) 7d.png
+(Loaded) 8d.png
+(Loaded) 9d.png
 (Loaded) layer4.png
 (Loaded) start_game.png
 (Loaded) options_game.png

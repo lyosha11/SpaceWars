@@ -73,8 +73,8 @@ void init(int level){
 	//Start (1-level)
 	if(level==1){
 		ETHEntity@ pl = SeekEntity("player.ent");
-		pl.SetFloat("hp",500);
-		pl.SetFloat("max_hp",500);
+		pl.SetFloat("hp",200);
+		pl.SetFloat("max_hp",200);
 		pl.SetFloat("shield",100);
 		pl.SetFloat("max_sh",100);
 		pl.SetFloat("en",100);
@@ -98,6 +98,9 @@ void init(int level){
 	//Add min\max money
 	minMoney = minMoney + rand(1,4);
 	maxMoney = maxMoney + rand(10,30);
+	//Add enemy damage
+	enemyMinDamage++;
+	enemyMaxDamage++;
 	//
 	int size = changeLevel(level);
 	for(int i=0;i<size;i++){

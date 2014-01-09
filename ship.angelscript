@@ -104,7 +104,7 @@ void initShip(){
 		@slotShip[i] = SlotShip("sprites/modules/slotShip"+type+".png",type, Pos);
 	}
 	//Standart items
-	slotShip[0].setMod(Module("Corpus","Standart armor corpus.",1,"sprites/modules/std_crp.png","hp",500,0));
+	slotShip[0].setMod(Module("Corpus","Standart armor corpus.",1,"sprites/modules/std_crp.png","hp",200,0));
 	slotShip[2].setMod(Module("Shield","Standart shield.",2,"sprites/modules/std_sh.png","sh",100,0));
 	slotShip[4].setMod(Module("Weapon","Standart laser weapon.",3,"sprites/modules/std_dmg.png","dmg",7,0,"shot.ent"));
 	slotShip[6].setMod(Module("Battery","Standart battery.",4,"sprites/modules/std_en.png","en",100,0));

@@ -39,18 +39,18 @@ void initShop(){
 		}
 	}
 	//Add module to shop
-	sl_shop[sl_shopS].setMod(Module("+50hp","Increase hp.",1,"sprites/modules/mod_50hp.png","hp",50,200));
+	sl_shop[sl_shopS].setMod(Module("Second armor","Increase hp.",1,"sprites/modules/mod_50hp.png","hp",50,200));
 	sl_shopS++;
-	sl_shop[sl_shopS].setMod(Module("+50sh","Increase shield.",2,"sprites/modules/mod_50sh.png","sh",50,300));
+	sl_shop[sl_shopS].setMod(Module("Extra shield","Increase shield.",2,"sprites/modules/mod_50sh.png","sh",50,300));
 	sl_shopS++;
-	sl_shop[sl_shopS].setMod(Module("+4dmg","Increase damage.",3,"sprites/modules/mod_4dmg.png","dmg",4,250));
+	sl_shop[sl_shopS].setMod(Module("Booster weapon","Increase damage.",3,"sprites/modules/mod_4dmg.png","dmg",4,250,"shot.ent"));
 	sl_shopS++;
 	//
 }
 
 void changeLevelShop(){
 	if(level==3){
-		sl_shop[sl_shopS].setMod(Module("Big corpus","Big corpus.Gives good armoring.",1,"sprites/modules/mod_big_crp.png","hp",650,400));
+		sl_shop[sl_shopS].setMod(Module("Big corpus","Big corpus.Gives good armoring.",1,"sprites/modules/mod_big_crp.png","hp",350,900));
 		sl_shopS++;
 		sl_shop[sl_shopS].setMod(Module("Big battery","Big battery.Gives good power.",4,"sprites/modules/mod_big_en.png","en",150,500));
 		sl_shopS++;
@@ -58,7 +58,21 @@ void changeLevelShop(){
 	if(level==4){
 		sl_shop[sl_shopS].setMod(Module("Big weapon","Big weapon.Gives good power fire.",3,"sprites/modules/mod_big_dmg.png","dmg",10,600,"shot3.ent"));
 		sl_shopS++;
-		sl_shop[sl_shopS].setMod(Module("Big Engine","Big engine.Gives good speed.",5,"sprites/modules/mod_big_engine.png","speed",8,600));
+		sl_shop[sl_shopS].setMod(Module("Big engine","Big engine.Gives good speed.",5,"sprites/modules/mod_big_engine.png","speed",6,400));
+		sl_shopS++;
+	}
+	if(level==5){
+		sl_shop[sl_shopS].setMod(Module("Big shield","Big shield.Gives good size shield.",2,"sprites/modules/mod_big_sh.png","sh",180,800));
+		sl_shopS++;
+	}
+	if(level==6){
+		sl_shop[sl_shopS].setMod(Module("Huge corpus","Huge corpus.Gives huge armoring.",1,"sprites/modules/mod_huge_crp.png","hp",600,1500));
+		sl_shopS++;
+		sl_shop[sl_shopS].setMod(Module("Huge battery","Huge battery.Gives huge power.",4,"sprites/modules/mod_huge_en.png","en",200,1200));
+		sl_shopS++;
+	}
+	if(level==7){
+		sl_shop[sl_shopS].setMod(Module("Fotton Engine","Fotton engine.Gives huge speed.",5,"sprites/modules/mod_huge_engine.png","speed",8,1200));
 		sl_shopS++;
 	}
 }

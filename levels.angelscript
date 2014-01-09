@@ -1,9 +1,9 @@
 #include "game.angelscript"
 
 int changeLevel(int level){
-	array<int> id(6);
+	array<int> id(20);
 	float x, y;
-	int size=0;
+	int size=0 , rnd=0;
 	switch(level){
 		case 1:
 			x=180;
@@ -235,7 +235,21 @@ int changeLevel(int level){
 			size = 8;
 		break;
 		default:
-			print("level not found");
+			x = GetScreenSize().x/2;
+			y = 80;
+			rnd = rand(1,8);
+			if(rnd<=4){
+				id[0] = AddEntity("enemy"+rnd+".ent", vector3(x, y, 0.0f),"enemy0");
+				ETHEntity @enemy = SeekEntity(id[0]);
+				enemy.SetFloat("hp", 100.0f+enemyMaxDamage+enemyMinDamage);
+			}
+			if(rnd<=8 && rnd>=5){
+				rnd = rnd-4;
+				id[0] = AddEntity("enemyBig"+rnd+".ent", vector3(x, y, 0.0f),"enemy0");
+				ETHEntity @enemy = SeekEntity(id[0]);
+				enemy.SetFloat("hp", 500.0f+enemyMaxDamage+enemyMinDamage);
+			}
+			size = 1;
 	}
 	return size;
 }
