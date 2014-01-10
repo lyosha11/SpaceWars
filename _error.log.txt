@@ -1,3 +1,5 @@
 [G:\EthanonEngine\project\_error.log.txt]
-Couldn't find the entity to delete: ID220
-Couldn't find the entity to delete: ID328
+
+[ERROR] main.angelscript, line 136: Expected ',' or ';'
+ERROR - Failed while building module.
+ERROR - ETHEngine::StartEngine: no scene has been loaded.

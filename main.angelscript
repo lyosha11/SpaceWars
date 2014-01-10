@@ -132,7 +132,9 @@ void ETHCallback_player(ETHEntity@ thisEntity){
 			}
 		}
 		if(alivePlayer){
-			float speed = thisEntity.GetFloat("speed");
+			float speed = (thisEntity.GetFloat("en") + thisEntity.GetFloat("max_en")/2) / thisEntity.GetFloat("max_en") * thisEntity.GetFloat("speed");
+			if(speed>thisEntity.GetFloat("speed"))
+				speed = thisEntity.GetFloat("speed");
 			if (input.KeyDown(K_RIGHT) && thisEntity.GetPosition().x < 950)
 				thisEntity.AddToPositionXY(vector2(speed, 0.0f));
 
