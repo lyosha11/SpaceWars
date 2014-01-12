@@ -49,6 +49,7 @@ void initShop(){
 }
 
 void changeLevelShop(){
+	//Add module to shop
 	if(level==3){
 		sl_shop[sl_shopS].setMod(Module("Big corpus","Big corpus.Gives good armoring.",1,"sprites/modules/mod_big_crp.png","hp",350,900));
 		sl_shopS++;
@@ -75,6 +76,7 @@ void changeLevelShop(){
 		sl_shop[sl_shopS].setMod(Module("Fotton Engine","Fotton engine.Gives huge speed.",5,"sprites/modules/mod_huge_engine.png","speed",8,1200));
 		sl_shopS++;
 	}
+	//
 }
 
 void startShop(){

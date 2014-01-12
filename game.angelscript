@@ -48,7 +48,7 @@ bool fireAI(ETHEntity@ obj){
 
 ETHEntityArray enemys , bullets , eff, bonus;
 bool alivePlayer = true;
-int counter = 0;
+int counter = 0 , counter_collision = 0;
 int enemyMinDamage = 8 , enemyMaxDamage = 16;
 int minMoney = 10, maxMoney = 100;
 
@@ -136,12 +136,16 @@ void loop(int level){
 				if(bullets[i2].GetInt("type")!=1 && bullets[i2].GetInt("type")!=3)
 					continue;
 				if(collision(@enemys[i],@bullets[i2])){
+						int dmg;
 						if(bullets[i2].GetInt("type")==1){
-							enemys[i].SetFloat("hp",enemys[i].GetFloat("hp")-rand(pl.GetFloat("min_damage"),pl.GetFloat("max_damage")));
+							dmg = rand(pl.GetFloat("min_damage"),pl.GetFloat("max_damage"));
+							enemys[i].SetFloat("hp",enemys[i].GetFloat("hp")-dmg);
 						}
 						if(bullets[i2].GetInt("type")==3){
-							enemys[i].SetFloat("hp",enemys[i].GetFloat("hp")-rand(16,32));
+							dmg = rand(16,32);
+							enemys[i].SetFloat("hp",enemys[i].GetFloat("hp")-dmg);
 						}
+						DrawFadingText(vector2((bullets[i2].GetPosition().x), (bullets[i2].GetPosition().y)), "-"+dmg, "Verdana20.fnt", 0xFFFFFFFF, 1000);
 						if(enemys[i].GetFloat("hp")<=0){
 							int id = AddEntity("eff2.ent",enemys[i].GetPosition());
 							eff.Insert(SeekEntity(id));
@@ -176,7 +180,6 @@ void loop(int level){
 		
 		//Player colision
 		if(alivePlayer){
-			ETHEntity@ pl = SeekEntity("player.ent");
 			//SHIELD REGEN
 			if(pl.GetFloat("shield")<pl.GetFloat("max_sh")){
 				if(counter%100==0){
@@ -201,6 +204,7 @@ void loop(int level){
 					continue;
 					if(collision(@pl,@bullets[i2]) && !bullets[i2].IsHidden() && bullets[i2].GetInt("type")==2){
 							float damage = rand(enemyMinDamage,enemyMaxDamage);
+							DrawFadingText(vector2((bullets[i2].GetPosition().x), (bullets[i2].GetPosition().y)), "-"+damage, "Verdana20.fnt", 0xFFFFFFFF, 1000);
 							if(pl.GetFloat("shield")>=damage){
 								pl.SetFloat("shield",pl.GetFloat("shield")-damage);
 								int id = AddEntity("shPlayerEff.ent",bullets[i2].GetPosition());
@@ -243,6 +247,48 @@ void loop(int level){
 					}
 				}
 			}
+			//Enemy collision
+			/*
+			if(numEnemys>0){
+				for(uint i=0;i<numEnemys;i++){
+					if(collision(pl,enemys[i])){
+						pl.AddToFloat("hp",-1);
+						enemys[i].AddToFloat("hp",-1);
+						//
+						if(pl.GetFloat("hp")<=0){
+							int id = AddEntity("eff2.ent",pl.GetPosition());
+							eff.Insert(SeekEntity(id));
+							pl.Hide(true);
+							alivePlayer = false;
+						}else{
+							if(counter_collision==0){
+								int x = (pl.GetPosition().x + enemys[i].GetPosition().x) / 2;
+								int y = (pl.GetPosition().y + enemys[i].GetPosition().y) / 2;
+								int z = 0;
+								vector3 vc = vector3(x,y,z);
+								int id = AddEntity("eff2.ent",vc);
+								eff.Insert(SeekEntity(id));
+								counter_collision = 20;
+							}
+						}
+						//
+						if(enemys[i].GetFloat("hp")<=0){
+							int id = AddEntity("eff2.ent",enemys[i].GetPosition());
+							eff.Insert(SeekEntity(id));
+							pl.SetInt("money",pl.GetInt("money")+rand(minMoney,maxMoney));
+							//ENEMY BIG (money_x3)
+							if(enemys[i].GetInt("type")>4 && enemys[i].GetInt("type")<=8){
+								pl.SetInt("money",pl.GetInt("money")+rand(minMoney,maxMoney));
+								pl.SetInt("money",pl.GetInt("money")+rand(minMoney,maxMoney));
+							}
+							//
+							DeleteEntity(enemys[i]);
+						}
+						//
+					}
+				}
+			}
+			*/
 			//
 		}else{
 			DrawText(vector2(20,100), "hp: DEAD", "Verdana20.fnt", 0xFFFFFFFF);
@@ -427,6 +473,8 @@ void loop(int level){
 		counter++;
 		if(counter>999999)
 			counter = 0;
+		if(counter_collision>0)
+			counter_collision--;
 		//
 	}else{
 		if(!shop){

@@ -1,5 +1,5 @@
 [G:\EthanonEngine\project\_error.log.txt]
 
-[ERROR] main.angelscript, line 136: Expected ',' or ';'
+[ERROR] game.angelscript, line 148: Expected ')' or ','
 ERROR - Failed while building module.
 ERROR - ETHEngine::StartEngine: no scene has been loaded.
